@@ -1,0 +1,12 @@
+<evaluation>
+  <qa_pair><question>On the Free plan, how many websites and how many team members are allowed? Answer as "websites/members".</question><answer>1/2</answer></qa_pair>
+  <qa_pair><question>How many URLs per crawl does the Growth plan allow, as a digits-only number with a comma?</question><answer>10,000</answer></qa_pair>
+  <qa_pair><question>Which plan is the first to include the public API and MCP server?</question><answer>Business</answer></qa_pair>
+  <qa_pair><question>What is the Free plan's tracked-keyword limit?</question><answer>200</answer></qa_pair>
+  <qa_pair><question>What automation cadence does the Free plan have (one word)?</question><answer>Weekly</answer></qa_pair>
+  <qa_pair><question>Which free tool follows a redirect chain hop by hop? Give its URL path.</question><answer>/tools/redirect-checker</answer></qa_pair>
+  <qa_pair><question>Which free tool checks hreflang reciprocity? Give its URL path.</question><answer>/tools/hreflang-checker</answer></qa_pair>
+  <qa_pair><question>Does the server publish a money price for the Growth plan? Answer yes or no.</question><answer>no</answer></qa_pair>
+  <qa_pair><question>What review status does the plan limits table carry (one word)?</question><answer>proposed</answer></qa_pair>
+  <qa_pair><question>How many local locations does the Free plan include?</question><answer>1</answer></qa_pair>
+</evaluation>

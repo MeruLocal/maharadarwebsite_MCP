@@ -29,9 +29,9 @@ describe('protocol', () => {
     const j = await r.json();
     expect(j.result.serverInfo.name).toBe('maharadar-mcp');
   });
-  it('lists 9 tools, all read-only with titles and annotations', async () => {
+  it('lists 10 tools, all read-only with titles and annotations', async () => {
     const j = await (await rpc('tools/list')).json();
-    expect(j.result.tools).toHaveLength(9);
+    expect(j.result.tools).toHaveLength(10);
     for (const t of j.result.tools) {
       expect(t.title).toBeTruthy();
       expect(t.annotations).toMatchObject({ readOnlyHint: true, destructiveHint: false, openWorldHint: false });
@@ -90,5 +90,55 @@ describe('discovery', () => {
   it('server card says stateless, unauthenticated, streamable-http', async () => {
     const c = await (await fetch(`${base}/.well-known/mcp/server-card.json`)).json();
     expect(c).toMatchObject({ transport: 'streamable-http', stateless: true, authentication: 'none' });
+  });
+});
+
+describe('hardening and inventory', () => {
+  it('answers 413 for a chunked oversized upload and keeps serving', async () => {
+    const { request } = await import('node:http');
+    const port = Number(new URL(base).port);
+    const status = await new Promise<number>((resolve, reject) => {
+      const r = request({ port, host: '127.0.0.1', method: 'POST', path: '/mcp', headers: { 'content-type': 'application/json', 'transfer-encoding': 'chunked' } }, (res) => { res.resume(); resolve(res.statusCode ?? 0); });
+      r.on('error', reject);
+      for (let i = 0; i < 20; i++) r.write('x'.repeat(8000));
+      r.end();
+    });
+    expect(status).toBe(413);
+    expect((await fetch(`${base}/health`)).status).toBe(200);
+  });
+  it('enumerates exactly 2 resources and 2 prompts', async () => {
+    expect((await (await rpc('resources/list')).json()).result.resources).toHaveLength(2);
+    expect((await (await rpc('prompts/list')).json()).result.prompts).toHaveLength(2);
+  });
+  it('every tool returns valid structured output (SDK validates outputSchema) for a sample call', async () => {
+    const calls: Array<[string, Record<string, unknown>]> = [
+      ['maharadar_about', {}], ['maharadar_search', { query: 'sitemap' }], ['maharadar_list_free_tools', {}],
+      ['maharadar_get_free_tool', { slug: 'seo-audit' }], ['maharadar_get_plan_limits', {}], ['maharadar_get_platform_feature', { id: 'site-audit' }],
+      ['maharadar_get_audience_guide', { audience: 'agencies' }], ['maharadar_get_seo_checklist', {}], ['maharadar_find_free_tool', { task: 'robots.txt' }], ['maharadar_get_faq', { topic: 'card' }],
+    ];
+    for (const [name, args] of calls) {
+      const j = await (await rpc('tools/call', { name, arguments: args })).json();
+      expect(j.error, name).toBeUndefined();
+      expect(j.result.isError, name).toBeFalsy();
+      expect(j.result.structuredContent.source.contentRepo, name).toBe('MeruLocal/maharadarwebsite');
+    }
+  });
+  it('no tool, resource or prompt output contains a currency amount', async () => {
+    const outs = [
+      await (await rpc('tools/call', { name: 'maharadar_get_plan_limits', arguments: {} })).text(),
+      await (await rpc('tools/call', { name: 'maharadar_search', arguments: { query: 'price pricing cost' } })).text(),
+      await (await rpc('tools/call', { name: 'maharadar_get_faq', arguments: {} })).text(),
+      await (await rpc('resources/read', { uri: 'maharadar://plan-limits' })).text(),
+    ];
+    for (const o of outs) expect(o).not.toMatch(/(?:₹|\$|€|£|USD|INR)\s?\d/);
+  });
+  it('FAQ answers cite the page that shows them', async () => {
+    const j = await (await rpc('tools/call', { name: 'maharadar_get_faq', arguments: { topic: 'credit card' } })).json();
+    expect(j.result.structuredContent.faqs.length).toBeGreaterThan(0);
+    for (const f of j.result.structuredContent.faqs) expect(f.url).toMatch(/^https:\/\/maharadar\.com\//);
+  });
+  it('unsupported protocol version negotiates down instead of crashing', async () => {
+    const j = await (await rpc('initialize', { protocolVersion: '1999-01-01', capabilities: {}, clientInfo: { name: 't', version: '1' } })).json();
+    expect(j.result?.protocolVersion ?? j.error).toBeTruthy();
   });
 });

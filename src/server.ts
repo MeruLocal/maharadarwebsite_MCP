@@ -6,7 +6,7 @@ export const SERVER_NAME = 'maharadar-mcp';
 export const SERVER_VERSION = '0.1.0';
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false } as const;
-const source = () => ({ site: SITE, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
+const source = () => ({ site: SITE, contentRepo: content.generatedFrom.repo, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
 const sourceShape = z.object({ site: z.string(), contentCommit: z.string() }).passthrough();
 
 const ok = (data: Record<string, unknown>) => ({
@@ -70,6 +70,7 @@ export function createServer(): McpServer {
     title: 'Get a free SEO tool',
     description: 'Details of one free MahaRadar tool: what it checks, what to enter, and its URL. Use after maharadar_list_free_tools or when the user names a task like "check my redirect chain".',
     inputSchema: { slug: z.enum(toolSlugs).describe('Tool slug from maharadar_list_free_tools') },
+    outputSchema: { slug: z.string(), name: z.string(), checks: z.array(z.string()), url: z.string(), source: sourceShape },
     annotations: { title: 'Get a free SEO tool', ...READ_ONLY },
   }, async ({ slug }) => {
     const t = content.tools.find((x) => x.slug === slug)!;
@@ -80,6 +81,7 @@ export function createServer(): McpServer {
     title: 'Get plan limits',
     description: 'Free, Growth and Business plan entitlements (websites, team seats, tracked keywords, URLs per crawl, AI blog posts, cadence). Answers "is MahaRadar really free" and "what are the limits". Money prices are NOT published; the response says so and carries the review status of the limits table.',
     inputSchema: { plan: z.enum(['free', 'growth', 'business']).optional().describe('Return only this plan column') },
+    outputSchema: { limitsStatus: z.string(), pricesPublished: z.boolean(), caveat: z.string(), rows: z.array(z.record(z.string(), z.unknown())), urls: z.record(z.string(), z.string()), source: sourceShape },
     annotations: { title: 'Get plan limits', ...READ_ONLY },
   }, async ({ plan }) => {
     const l = content.limits;
@@ -108,6 +110,7 @@ export function createServer(): McpServer {
     title: 'Get a platform feature',
     description: 'How one MahaRadar platform area works (site audit and SEO Center, page SEO, technical SEO, keywords, links, beyond-Google engines, local SEO, content, intelligence, publishing, roles, API): the problem, the steps, and what is free, paid and not possible.',
     inputSchema: { id: z.enum(platformIds).describe('Platform area id') },
+    outputSchema: { id: z.string(), name: z.string(), problem: z.string(), url: z.string(), source: sourceShape },
     annotations: { title: 'Get a platform feature', ...READ_ONLY },
   }, async ({ id }) => {
     const p = content.platform.find((x) => x.id === id)!;
@@ -118,6 +121,7 @@ export function createServer(): McpServer {
     title: 'Get an audience guide',
     description: 'How MahaRadar fits one audience: agencies, e-commerce, SaaS, local business, publishers or developers. Returns the audience problem, specific behaviours, checklist and FAQs.',
     inputSchema: { audience: z.enum(audienceSlugs).describe('Audience slug') },
+    outputSchema: { slug: z.string(), name: z.string(), problem: z.string(), url: z.string(), source: sourceShape },
     annotations: { title: 'Get an audience guide', ...READ_ONLY },
   }, async ({ audience }) => {
     const s = content.solutions.find((x) => x.slug === audience)!;
@@ -128,6 +132,7 @@ export function createServer(): McpServer {
     title: 'Get the SEO checklist',
     description: 'MahaRadar SEO checklist, task by task, with why each item matters and the free tool that checks it. Use for "SEO checklist" or "what should I check before launch" questions.',
     inputSchema: { group: z.enum(checklistGroups).optional().describe('Checklist group id; omit for all groups') },
+    outputSchema: { groups: z.array(z.record(z.string(), z.unknown())), availableGroups: z.array(z.string()), url: z.string(), source: sourceShape },
     annotations: { title: 'Get the SEO checklist', ...READ_ONLY },
   }, async ({ group }) => {
     const groups = content.checklist
@@ -140,10 +145,23 @@ export function createServer(): McpServer {
     title: 'Find the right free tool for a task',
     description: 'Match an SEO task in plain words (for example "see why my redirect loops", "validate my sitemap", "preview my title in Google") to the best free MahaRadar tools. Returns up to 3 tools with URLs.',
     inputSchema: { task: z.string().min(2).max(200).describe('What the user wants to check or fix') },
+    outputSchema: { task: z.string(), matches: z.array(z.object({ name: z.string(), url: z.string(), what: z.string() })), source: sourceShape },
     annotations: { title: 'Find the right free tool', ...READ_ONLY },
   }, async ({ task }) => {
     const hits = search(task, 60).filter((h) => h.type === 'free_tool').slice(0, 3);
     return ok({ task, matches: hits.map((h) => ({ name: h.title, url: h.url, what: h.snippet })), fallback: hits.length ? undefined : abs('/tools'), source: source() });
+  });
+
+  server.registerTool('maharadar_get_faq', {
+    title: 'Answer a buyer FAQ',
+    description: 'Answers to common MahaRadar buyer questions as published on maharadar.com: is it really free, what is the catch, do I need a card, will the free plan change. Optionally filter by keywords. Each answer cites its page.',
+    inputSchema: { topic: z.string().max(100).optional().describe('Optional keywords, e.g. "card" or "free plan"') },
+    outputSchema: { count: z.number(), faqs: z.array(z.object({ question: z.string(), answer: z.string(), url: z.string() })), source: sourceShape },
+    annotations: { title: 'Answer a buyer FAQ', ...READ_ONLY },
+  }, async ({ topic }) => {
+    const words = (topic ?? '').toLowerCase().split(/\W+/).filter((w) => w.length > 1);
+    const pick = content.faq.filter((f) => !words.length || words.some((w) => `${f.question} ${f.answer}`.toLowerCase().includes(w)));
+    return ok({ count: pick.length, faqs: pick.map((f) => ({ question: f.question, answer: f.answer, url: abs(f.page ?? '/') })), source: source() });
   });
 
   server.registerResource('about', 'maharadar://about', { title: 'About MahaRadar', description: 'What MahaRadar is and what this server offers.', mimeType: 'application/json' },

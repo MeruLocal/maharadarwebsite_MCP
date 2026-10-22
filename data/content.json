@@ -1083,63 +1083,68 @@
   "faq": [
     {
       "question": "Is it really free?",
-      "answer": "Yes, for one website, with the limits published on this page. No card, no expiry, and not limited to a single person — you get two seats."
+      "answer": "Yes, for one website, with the limits published on this page. No card, no expiry, and not limited to a single person — you get two seats.",
+      "page": "/pricing"
     },
     {
       "question": "What is the catch?",
-      "answer": "More websites, more AI, a bigger team, PR and Media, and the API are paid. That is the whole catch, and it is on the pricing page rather than hidden in your head."
+      "answer": "More websites, more AI, a bigger team, PR and Media, and the API are paid. That is the whole catch, and it is on the pricing page rather than hidden in your head.",
+      "page": "/pricing"
     },
     {
       "question": "Will you change the free plan later?",
-      "answer": "If we ever reduce it, companies already on the free plan keep the limits they signed up with. The limits are versioned and dated on this site, with a changelog."
+      "answer": "If we ever reduce it, companies already on the free plan keep the limits they signed up with. The limits are versioned and dated on this site, with a changelog.",
+      "page": "/pricing"
     },
     {
       "question": "Do I need a credit card?",
-      "answer": "No. There is no card field in signup, because there is nothing to charge you for on the free plan."
+      "answer": "No. There is no card field in signup, because there is nothing to charge you for on the free plan.",
+      "page": "/pricing"
     },
     {
       "question": "How many AI blog posts do I get?",
-      "answer": "Fifty per company, for ever. Only a post that is actually written counts, and a meter shows your remaining balance before you spend it — the same number the product enforces."
+      "answer": "Fifty per company, for ever. Only a post that is actually written counts, and a meter shows your remaining balance before you spend it — the same number the product enforces.",
+      "page": "/pricing"
     },
     {
       "question": "Can it publish changes to my site?",
-      "answer": "On supported platforms, yes — it publishes after a human approves, and keeps a rollback. Everywhere else it prepares the exact change, shows you the diff and hands you an export. The capability list is in the docs."
+      "answer": "On supported platforms, yes — it publishes after a human approves, and keeps a rollback. Everywhere else it prepares the exact change, shows you the diff and hands you an export. The capability list is in the docs.",
+      "page": "/"
     },
     {
       "question": "Do you crawl my site politely?",
-      "answer": "Yes. We send an identified user-agent, respect robots.txt, cap how many pages we fetch in one run, and publish those limits. We sell SEO; crawling badly would be a strange way to do it."
+      "answer": "Yes. We send an identified user-agent, respect robots.txt, cap how many pages we fetch in one run, and publish those limits. We sell SEO; crawling badly would be a strange way to do it.",
+      "page": "/free-seo"
     },
     {
       "question": "What do you store when I use a free tool without an account?",
-      "answer": "The tool you ran, your site hostname, a hashed IP and timings. Not the query string, not the page content, and nothing that identifies you personally."
+      "answer": "The tool you ran, your site hostname, a hashed IP and timings. Not the query string, not the page content, and nothing that identifies you personally.",
+      "page": "/free-seo"
     },
     {
       "question": "How is this different from Google Search Console?",
-      "answer": "Search Console tells you what happened. We tell you what to change, draft the change, publish it once a human approves, and keep a rollback. We also read five engines Search Console does not."
-    },
-    {
-      "question": "How is this different from Semrush or Ahrefs?",
-      "answer": "They have bigger keyword and backlink datasets, and we say so on the comparison pages. We close the loop from finding to published fix, cover non-Google engines, and are free for one site."
+      "answer": "Search Console tells you what happened. We tell you what to change, draft the change, publish it once a human approves, and keep a rollback. We also read five engines Search Console does not.",
+      "page": "/"
     },
     {
       "question": "Can I use it for client sites?",
-      "answer": "Yes. Each client is a company with its own sites, members and roles, isolated in the database. You pay per site, not per seat."
-    },
-    {
-      "question": "Do you support my CMS?",
-      "answer": "Check the capability list in the docs. If yours is not on it, the export path still works: we prepare the change and the diff, and you apply it."
+      "answer": "Yes. Each client is a company with its own sites, members and roles, isolated in the database. You pay per site, not per seat.",
+      "page": "/pricing"
     },
     {
       "question": "Is my data used to train AI?",
-      "answer": "No. Your content is never used in another customer’s prompt, never sold, and never used to train a public model."
+      "answer": "No. Your content is never used in another customer’s prompt, never sold, and never used to train a public model.",
+      "page": "/free-plan"
     },
     {
       "question": "Can I export everything and leave?",
-      "answer": "Yes. Export is self-serve, and the deletion path is documented and tested rather than promised."
+      "answer": "Yes. Export is self-serve, and the deletion path is documented and tested rather than promised.",
+      "page": "/pricing"
     },
     {
       "question": "Who is behind it?",
-      "answer": "Meru Technosoft — the team behind HelloGrowthCRM, HelloBooks and HelloTime. This is the SEO platform we built to run our own sites, opened up."
+      "answer": "Meru Technosoft — the team behind HelloGrowthCRM, HelloBooks and HelloTime. This is the SEO platform we built to run our own sites, opened up.",
+      "page": "/free-plan"
     }
   ],
   "checklist": [

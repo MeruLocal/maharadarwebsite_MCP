@@ -23,6 +23,6 @@ Nothing here has been submitted anywhere. Do not submit until the **gates** belo
 - **Name:** MahaRadar
 - **One line:** Public, read-only facts about MahaRadar, the free SEO platform: which free SEO tool fits a task, what is free vs paid, SEO checklist, with canonical URLs.
 - **Tags:** seo, seo-tools, site-audit, sitemap, robots-txt, schema-markup, hreflang, free-tools
-- **Tools (9):** maharadar_about, maharadar_search, maharadar_find_free_tool, maharadar_list_free_tools, maharadar_get_free_tool, maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_audience_guide, maharadar_get_seo_checklist
+- **Tools (10):** maharadar_about, maharadar_search, maharadar_find_free_tool, maharadar_list_free_tools, maharadar_get_free_tool, maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_audience_guide, maharadar_get_seo_checklist, maharadar_get_faq
 - **Auth:** none. **Writes:** none. **Transport:** Streamable HTTP, stateless.
 - **Honest scope line (include):** "Information server. It does not run audits; the audits run on maharadar.com/tools."

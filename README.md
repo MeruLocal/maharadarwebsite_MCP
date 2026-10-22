@@ -5,7 +5,7 @@ Public, read-only MCP server for [maharadar.com](https://maharadar.com), the fre
 It is an **information server**. It does not run audits, touch accounts or write anything. The product API/MCP for account data is a separate Business-plan feature on the site.
 
 - Transport: Streamable HTTP, **stateless** (no `Mcp-Session-Id`), `POST /mcp`. Auth: none.
-- Tools (9, all `readOnlyHint: true`): `maharadar_about`, `maharadar_search`, `maharadar_find_free_tool`, `maharadar_list_free_tools`, `maharadar_get_free_tool`, `maharadar_get_plan_limits`, `maharadar_get_platform_feature`, `maharadar_get_audience_guide`, `maharadar_get_seo_checklist`.
+- Tools (10, all `readOnlyHint: true`): `maharadar_about`, `maharadar_search`, `maharadar_find_free_tool`, `maharadar_list_free_tools`, `maharadar_get_free_tool`, `maharadar_get_plan_limits`, `maharadar_get_platform_feature`, `maharadar_get_audience_guide`, `maharadar_get_seo_checklist`, `maharadar_get_faq`.
 - Resources: `maharadar://about`, `maharadar://plan-limits`. Prompts: `recommend_free_seo_tools`, `is_maharadar_a_fit`.
 - Discovery: `/.well-known/mcp/server-card.json`, `/.well-known/mcp.json`, `/llms.txt`, `/health`, `/version`.
 
@@ -20,6 +20,14 @@ SITE_REPO="C:/Software RSS/maharadarwebsite" npm run sync:content
 It records the site repo, branch and commit it came from (returned in every tool result as `source`). Regenerate from the site trunk before every release. Only `implemented` tools are included. Comparison pages are deliberately **not** served: every competitor column on the site is still `draft` and unresearched.
 
 Plan limits are served with the site's own status (`proposed`, enforcement not verified) and `pricesPublished: false`. The server never states a paid price.
+
+## Connect
+
+```bash
+claude mcp add --transport http maharadar https://mcp.maharadar.com/mcp
+```
+
+Cursor, VS Code and Claude Desktop configs are in `examples/`. `eval/maharadar-eval.xml` holds 10 verifiable questions (answers checked against `data/content.json`). The host is not live yet.
 
 ## Run
 

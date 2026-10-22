@@ -1,0 +1,1 @@
+{ "mcpServers": { "maharadar": { "command": "npx", "args": ["-y", "mcp-remote", "https://mcp.maharadar.com/mcp"] } } }

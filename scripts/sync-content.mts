@@ -14,6 +14,14 @@ const [tools, platform, solutions, faq, pillars, checklist] = await Promise.all(
   imp('tools.ts'), imp('platform-pages.ts'), imp('solutions.ts'), imp('faq.ts'), imp('pillars.ts'), imp('seo-checklist.ts'),
 ]);
 const limits = JSON.parse(readFileSync(path.join(repo, 'src/content/limits.json'), 'utf8'));
+// Which page shows each FAQ, read from the pages' own faqs(...) calls so a cited URL really carries the answer.
+const faqPages: Array<[string, string]> = [['pricing', 'src/app/(marketing)/pricing/page.tsx'], ['free-plan', 'src/app/(marketing)/free-plan/page.tsx'], ['free-seo', 'src/app/(marketing)/free-seo/page.tsx']];
+const keyPage = new Map<string, string>();
+for (const [route, file] of faqPages) {
+  const src = readFileSync(path.join(repo, file), 'utf8');
+  for (const m of src.matchAll(/faqs\(([^)]*)\)/g)) for (const k of m[1].matchAll(/'(\w+)'/g)) if (!keyPage.has(k[1])) keyPage.set(k[1], `/${route}`);
+}
+for (const k of faq.HOME_FAQ_KEYS) if (!keyPage.has(k)) keyPage.set(k, '/');
 const commit = execFileSync('git', ['-C', repo, 'rev-parse', 'HEAD']).toString().trim();
 const branch = execFileSync('git', ['-C', repo, 'rev-parse', '--abbrev-ref', 'HEAD']).toString().trim();
 
@@ -37,7 +45,7 @@ const out = {
     slug: s.slug, name: s.name, path: `/solutions/${s.slug}`, description: s.metaDescription,
     problem: s.problem, behaviours: s.behaviours, checklist: s.checklist, faqs: s.faqs,
   })),
-  faq: Object.values(faq.FAQ_BANK),
+  faq: Object.entries(faq.FAQ_BANK).map(([key, f]: [string, any]) => ({ ...f, page: keyPage.get(key) ?? null })).filter((f: any) => f.page),
   checklist: checklist.SEO_CHECKLIST,
   limits,
 };

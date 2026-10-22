@@ -1,27 +1,29 @@
 # MahaRadar website MCP: audit and build, 2026-10-22
 
+**What existed:** `git ls-tree -r --name-only main | wc -l` = **2** files (README.md, .gitignore). A scaffold, no code.
+
 **Server audited:** the *website* MCP for maharadar.com (public, anonymous), repo `MeruLocal/maharadarwebsite_MCP`. Not the product's Business-plan API/MCP. Measured at repo commit `b6519ba` (main), then rebuilt on branch `fix/mcp-audit-build-2026-10-22`.
 
 ## Headline
 
-There was nothing to audit. The repo held a README ("scaffold only. Tools and deployment config to be added"), no code, no package.json, and no endpoint resolves. The audit therefore became "build the server the skill's checks would pass", then audit that build. Content is generated from the site source; no fact was typed by hand.
+There was nothing to audit. The repo held a README ("scaffold only. Tools and deployment config to be added"), no code, no package.json, and no endpoint resolves. The audit therefore became "build the server the skill's checks would pass", then audit that build. Tool content is generated from the site source. Exception found by the Astra review: the `maharadar_about` strings in `src/server.ts` are hand-copied from the live `/llms.txt` (checked 2026-10-22) and are not regenerated; listed as a Gap below.
 
 ## Findings on the repo as found (severity-ranked)
 
 | # | Sev | Finding | Evidence |
 |---|---|---|---|
-| F1 | Critical | No server exists: nothing for an AI assistant to call, nothing to list in a registry. | `git ls-tree main`: `README.md`, `.gitignore` only; `gh pr list`: none |
-| F2 | High | Endpoint host does not exist. | `curl https://mcp.maharadar.com/` returned HTTP `000` (no DNS) on 2026-10-22; `maharadar.com` returns 200 |
-| F3 | High | No discovery surface anywhere: main site has no MCP link, `/.well-known/mcp.json` is 404; the site's `llms.txt` mentions only "API and MCP ... on the Business plan" (the product MCP), which would mislead a crawler into thinking no public MCP is meant. | `curl -w %{http_code} https://maharadar.com/.well-known/mcp.json` = 404; `llms.txt` line "API and MCP" |
+| F1 | Launch blocker (not a security finding) | No server exists: nothing for an AI assistant to call, nothing to list in a registry. | `git ls-tree main`: `README.md`, `.gitignore` only; `gh pr list`: none |
+| F2 | Launch blocker | Endpoint host does not exist. | `nslookup mcp.maharadar.com`: Non-existent domain; curl error 6 (could not resolve host) on 2026-10-22; `maharadar.com` returns 200 |
+| F3 | Discovery gap | No discovery surface anywhere: main site has no MCP link, `/.well-known/mcp.json` is 404; the site's `llms.txt` mentions only "API and MCP ... on the Business plan" (the product MCP), which would mislead a crawler into thinking no public MCP is meant. | `curl -w %{http_code} https://maharadar.com/.well-known/mcp.json` = 404; `llms.txt` line "API and MCP" |
 | F4 | Medium | Source of truth is a plan branch, not a trunk. `maharadarwebsite` has no `master`/`main`; its default pointer is `plan/mta-0035-maharadar-marketing-website`. Content was generated from it @ `1991d0bc`. | `git branch -r` in the site repo |
 | F5 | Medium | Pricing is unapproved: `limits.json` `status: "proposed"`, `approvedBy: null`, `enforcementVerified: false`, Growth/Business prices `not-published`. Live `/pricing` shows "Pricing in review". Any MCP that quotes a price would invent one. | `src/content/limits.json`; `curl /pricing` |
 | F6 | Medium | Traffic gap: the research's best commercial intents (`semrush alternative` US 3,000, `free ahrefs alternative` US 3,100, `sitemap generator` IN 23,000, `what is a sitemap` US 14,000) have no servable answer: all 7 comparison pages are `draft` with unresearched competitor columns, `/learn/*` returns 404 live, and the generator tools do not exist. | `comparisons.ts` (`checkedOn: null`); `curl /learn/what-is-a-sitemap` = 404; `content-plan.md` section C |
-| F7 | Low | Site tool count: 15 entries are `implemented` (14 tools plus the checklist). The live sitemap lists exactly these 14 tool URLs plus `/seo-checklist`: consistent. | live `sitemap.xml` vs `content.json` (test asserts it) |
+| F7 | Pass | Site tool count: 15 entries are `implemented` (14 tools plus the checklist). The live sitemap lists exactly these 14 tool URLs plus `/seo-checklist`: consistent. | live `sitemap.xml` vs `content.json` (test asserts it) |
 
 ## What was built (this PR)
 
 - Stateless Streamable HTTP server (`POST /mcp`; GET/DELETE return 405 with `Allow`). No `Mcp-Session-Id`, so it is already compatible with the 2026-07-28 stateless spec.
-- 9 tools, every one with `title`, `readOnlyHint:true`, `destructiveHint:false`, `idempotentHint:true`, `openWorldHint:false`, descriptions written around buyer questions ("is it really free", "which tool checks my redirect chain", "does it fit an agency"). `structuredContent` plus a JSON text copy. `outputSchema` on 3 of 9 tools (about, search, list); the entity-detail tools omit it because their payloads vary per entity (a gap against the skill's standing "no outputSchema" warn).
+- 10 tools (the 9 plus `maharadar_get_faq`), every one with `title`, `readOnlyHint:true`, `destructiveHint:false`, `idempotentHint:true`, `openWorldHint:false`, descriptions written around buyer questions ("is it really free", "which tool checks my redirect chain", "does it fit an agency"). `structuredContent` plus a JSON text copy. `outputSchema` on all 10 tools (key fields only; payloads carry more).
 - 2 resources, 2 prompts, server `instructions` telling the model to cite URLs and never state a paid price.
 - Discovery: `/.well-known/mcp/server-card.json`, `/.well-known/mcp.json`, `/llms.txt`, `/robots.txt`, `/health`, `/version`.
 - Safety: no write tools, no outbound fetches, no env secrets, 64 KB body cap, soft per-IP rate limit (120/min; the IP comes from `x-forwarded-for`, which is spoofable unless the proxy overwrites it), request timeouts, SIGTERM shutdown, non-root container.
@@ -29,7 +31,7 @@ There was nothing to audit. The repo held a README ("scaffold only. Tools and de
 
 ## Verification (measured)
 
-- `tsc` build: clean. `vitest`: **17 passed / 17** (protocol, annotations, 405, parse error 400, 413, bad-argument handling, content truth, discovery).
+- `tsc` build: clean. `vitest`: **23 passed / 23** (final run after Astra fixes) (protocol, annotations, 405, parse error 400, 413, bad-argument handling, content truth, discovery).
 - `scripts/check-versions.mjs`: package.json = server.json = src/server.ts = 0.1.0.
 
 ## Deliberately NOT served (and why)
@@ -57,3 +59,34 @@ There was nothing to audit. The repo held a README ("scaffold only. Tools and de
 3. Founder: approve the limits table and Business-plan MCP naming (two MCPs share the word).
 4. Pick a trunk for `maharadarwebsite` and regenerate content from it.
 5. Optional: Cisco `mcp-scanner` run (pinned, containerised) before listing.
+
+## Acceptance audit with RSS-MCP-Audit-skill (local build, 10 tools)
+
+`audit-live-mcp.mjs` hardcodes `/sse` and SSE-framed, stateful responses. A copy pointed at `/mcp` with a JSON-body parser gave **1 fail, 3 warn, 13 pass**. The fail and two warns are the script's stateful assumptions, not defects: no `mcp-session-id` (the server is deliberately stateless), request without session accepted (200), endpoint "named /sse" (it is named /mcp). The remaining warn (`/version` lacked `mcp_endpoint`) is fixed. All 41 canonical URLs the content emits return HTTP 200 on live maharadar.com (curl, 2026-10-22). Script limitation to fix in the skill: support stateless servers.
+
+Hand checks: numbers come from `limits.json` via the generator (no typed facts); prices absent; URLs resolve; freshness stamp is the source commit (not a time).
+
+## Completeness checklist
+
+| Item | Status |
+|---|---|
+| Server (stateless Streamable HTTP), tools with title, annotations, outputSchema | Done |
+| Resources (2), prompts (2), server instructions | Done |
+| Error handling: 405, 400 parse, 413, 429, bad-argument isError | Done (tests) |
+| Rate limit | Done: per socket address (x-forwarded-for only if TRUST_PROXY=1), bounded 10k map, O(1) eviction |
+| server card, `/.well-known/mcp.json`, llms.txt, robots, health, version | Done |
+| README with install snippets, example client configs, eval questions | Done |
+| `server.json`, `smithery.yaml`, `glama.json`, Dockerfile | Done (unsubmitted); glama maintainer blank |
+| Website link to the MCP | Draft PR MeruLocal/maharadarwebsite#7 (env-gated llms.txt line). A /docs/mcp page: **Gap** |
+| Tests | Done (17+); eval XML written, **not executed** against a model |
+| Deploy, DNS, public endpoint | **Gap** (no host) |
+| Registry submissions | **Not done by instruction** |
+| Comparisons, /learn guides, generator tools | **Gap** (site hasn't shipped them) |
+| Keyword-cluster tools (sitemap, schema, redirects, hreflang, robots): findable via `find_free_tool`/`search` | Done for the 14 shipped tools |
+| Conformance / Inspector / scanner runs | **Gap** |
+| `maharadar_about` text regenerated from source | **Gap** (hand-copied from live llms.txt) |
+| Request logging / per-tool call counts | **Gap** |
+
+## Go / no-go
+
+**Go** for a staging deployment; **no-go** for public registry listing until DNS/live behaviour, the limits sign-off and a conformance run are done; **no-go** for any traffic claim. Mechanisms: (1) registry/directory listings (Smithery, Glama, PulseMCP, official registry) send people who already use MCP clients and search "SEO tools MCP"; (2) assistants that connect can cite maharadar.com URLs for "free sitemap checker / redirect checker / is X really free" questions; (3) `llms.txt` pointer. Measurable once live: tool-call counts per tool (not yet logged: **Gap**, add request logging), referral sessions from directory domains in GA4, and AI-citation presence via Ahrefs Brand Radar. Honest expectation: small and slow; MCP-directory referral volume for this category is unmeasured and no number is claimed. Cost is low (static data, no upstream calls), risk is low (read-only), so deploy is worth it; the keyword research's volume sits in the web pages, so the larger lever is shipping the site pages the MCP will then serve.

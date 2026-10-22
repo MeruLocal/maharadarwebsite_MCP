@@ -45,7 +45,7 @@ export function llmsTxt(): string {
 ## Tools
 
 - maharadar_about, maharadar_search, maharadar_find_free_tool, maharadar_list_free_tools, maharadar_get_free_tool
-- maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_audience_guide, maharadar_get_seo_checklist
+- maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_audience_guide, maharadar_get_seo_checklist, maharadar_get_faq
 
 ## Free tools the server describes (canonical pages)
 
@@ -75,27 +75,50 @@ function rpcError(res: ServerResponse, status: number, code: number, message: st
 }
 
 const hits = new Map<string, { n: number; reset: number }>();
+const MAX_TRACKED = 10_000;
+let lastSweep = 0;
+function clientKey(req: IncomingMessage): string {
+  // x-forwarded-for is client-controllable; honour it only behind a proxy that overwrites it (TRUST_PROXY=1).
+  const xff = process.env.TRUST_PROXY === '1' ? String(req.headers['x-forwarded-for'] ?? '').split(',').pop()?.trim() : '';
+  return xff || req.socket.remoteAddress || 'unknown';
+}
 function limited(req: IncomingMessage): boolean {
-  // Soft limit only: x-forwarded-for is client-controllable unless the proxy overwrites it.
-  const ip = String(req.headers['x-forwarded-for'] ?? req.socket.remoteAddress ?? '').split(',')[0].trim();
+  const ip = clientKey(req);
   const now = Date.now();
+  if (now - lastSweep > 30_000) {
+    lastSweep = now;
+    for (const [k, v] of hits) if (v.reset < now) hits.delete(k);
+  }
   const e = hits.get(ip);
   if (!e || e.reset < now) {
+    if (hits.size >= MAX_TRACKED) hits.delete(hits.keys().next().value as string); // bounded: evict oldest, O(1)
     hits.set(ip, { n: 1, reset: now + 60_000 });
-    if (hits.size > 5000) for (const [k, v] of hits) if (v.reset < now) hits.delete(k);
     return false;
   }
   return ++e.n > RATE_PER_MIN;
 }
 
-async function readBody(req: IncomingMessage): Promise<unknown> {
+/** Reads the JSON body; on overflow answers 413 itself and resolves null (never throws mid-stream, which would destroy the socket before the reply). */
+async function readBody(req: IncomingMessage, res: ServerResponse): Promise<unknown | null> {
+  const declared = Number(req.headers['content-length'] ?? 0);
+  const tooBig = () => {
+    rpcError(res, 413, -32000, 'Body too large', { connection: 'close' });
+    req.resume(); // discard the rest so the client can read the 413
+    res.on('finish', () => setTimeout(() => req.destroy(), 1000).unref());
+    return null;
+  };
+  if (declared > MAX_BODY) return tooBig();
   const chunks: Buffer[] = [];
   let size = 0;
-  for await (const c of req) {
-    size += (c as Buffer).length;
-    if (size > MAX_BODY) throw Object.assign(new Error('Body too large'), { status: 413 });
-    chunks.push(c as Buffer);
-  }
+  const over = await new Promise<boolean>((resolve, reject) => {
+    req.on('data', (c: Buffer) => {
+      size += c.length;
+      if (size > MAX_BODY) { req.removeAllListeners('data'); resolve(true); } else chunks.push(c);
+    });
+    req.on('end', () => resolve(false));
+    req.on('error', reject);
+  });
+  if (over) return tooBig();
   try {
     return JSON.parse(Buffer.concat(chunks).toString('utf8'));
   } catch {
@@ -119,7 +142,8 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   if (p === '/mcp') {
     if (req.method !== 'POST') return rpcError(res, 405, -32000, 'Method not allowed. This server is stateless: use POST /mcp.', { allow: 'POST, OPTIONS' });
     if (limited(req)) return rpcError(res, 429, -32000, 'Rate limit exceeded', { 'retry-after': '60' });
-    const body = await readBody(req);
+    const body = await readBody(req, res);
+    if (body === null && res.writableEnded) return;
     const server = createServer();
     const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
     res.on('close', () => { void transport.close(); void server.close(); });
@@ -129,7 +153,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   if (req.method !== 'GET' && req.method !== 'HEAD') return json(res, 405, { error: 'method_not_allowed' }, { allow: 'GET, HEAD, OPTIONS' });
 
   if (p === '/health') return json(res, 200, { status: 'ok' });
-  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 9, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
+  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 10, resources: 2, prompts: 2, mcp_endpoint: `${publicUrl()}/mcp`, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
   if (p === '/.well-known/mcp/server-card.json' || p === '/.well-known/mcp.json') return json(res, 200, serverCard(), { 'cache-control': 'public, max-age=3600' });
   if (p === '/llms.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=3600' }); return void res.end(llmsTxt()); }
   if (p === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' }); return void res.end('User-agent: *\nAllow: /\n'); }

@@ -9,7 +9,7 @@ export type Content = {
   tools: any[];
   platform: any[];
   solutions: any[];
-  faq: Array<{ question: string; answer: string }>;
+  faq: Array<{ question: string; answer: string; page: string | null }>;
   checklist: any[];
   limits: any;
 };
@@ -47,7 +47,7 @@ export function search(q: string, limit = 8): Hit[] {
   for (const t of content.tools) add('free_tool', t.name, t.path, `${t.job} ${t.checks.join(' ')}`);
   for (const p of content.platform) add('platform_feature', p.name, p.path, `${p.summary} ${p.problem} ${p.steps.map((s: any) => s.title + ' ' + s.body).join(' ')}`);
   for (const s of content.solutions) add('audience', s.name, s.path, `${s.description} ${s.problem}`);
-  for (const f of content.faq) add('faq', f.question, '/pricing', f.answer);
+  for (const f of content.faq) add('faq', f.question, f.page ?? '/', f.answer);
   for (const g of content.checklist) for (const i of g.items) add('checklist_item', i.title, i.toolHref ?? '/seo-checklist', i.why);
   return hits.sort((a, b) => b.score - a.score).slice(0, limit);
 }
