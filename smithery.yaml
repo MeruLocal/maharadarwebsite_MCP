@@ -1,0 +1,10 @@
+# Smithery config for a container-hosted Streamable HTTP server. Packet only; not submitted.
+runtime: "container"
+build:
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
+startCommand:
+  type: "http"
+  configSchema:
+    type: "object"
+    properties: {}

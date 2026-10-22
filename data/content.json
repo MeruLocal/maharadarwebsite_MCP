@@ -1,0 +1,1721 @@
+{
+  "generatedFrom": {
+    "repo": "MeruLocal/maharadarwebsite",
+    "branch": "plan/mta-0035-maharadar-marketing-website",
+    "commit": "1991d0bcceb953d8ce47179bc9c04c1c683087cb"
+  },
+  "site": "https://maharadar.com",
+  "tools": [
+    {
+      "slug": "seo-audit",
+      "name": "Free SEO audit",
+      "job": "Audit a whole site and get a ranked list of real problems.",
+      "group": "Check a site",
+      "path": "/tools/seo-audit",
+      "metaDescription": "Run a free SEO audit on any website. Real findings in about 30 seconds, no account and no card. Up to 25 pages crawled.",
+      "checks": [
+        "Missing, duplicate or over-long title tags",
+        "Meta description length and duplication",
+        "More than one H1, or no H1 at all",
+        "Missing or conflicting canonical tags",
+        "A noindex left in production",
+        "robots.txt rules that conflict with your meta robots",
+        "Missing Open Graph and Twitter card tags",
+        "Thin pages by word count",
+        "Broken internal links",
+        "Oversized images and missing alt text",
+        "No structured data at all",
+        "Slow time to first byte",
+        "Mixed content on an HTTPS page",
+        "A page that no sitemap references"
+      ],
+      "input": "Enter your website",
+      "crawlsMultiplePages": true
+    },
+    {
+      "slug": "seo-checker",
+      "name": "SEO checker",
+      "job": "Check one page in depth.",
+      "group": "Check a page",
+      "path": "/tools/seo-checker",
+      "metaDescription": "Check a single page for on-page SEO problems: title, meta, headings, word count, links, images and schema. Free, no signup.",
+      "checks": [
+        "Everything the site audit checks, for a single URL",
+        "Word count and content-to-code ratio",
+        "The full heading outline, in document order",
+        "Keyword distribution, counted not guessed",
+        "Internal and external link counts",
+        "Image count, bytes and alt coverage"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "website-seo-score",
+      "name": "Website SEO score",
+      "job": "Turn the audit into one score you can share.",
+      "group": "Check a site",
+      "path": "/tools/website-seo-score",
+      "metaDescription": "Get a 0–100 SEO score for any website, with sub-scores for content, technical, performance and metadata. Free and shareable.",
+      "checks": [
+        "A 0–100 overall score, built from the audit findings",
+        "Four sub-scores: content, technical, performance and metadata",
+        "The weighting used, published so the number is not a black box",
+        "A shareable card that expires in 30 days and can be removed at any time"
+      ],
+      "input": "Enter your website",
+      "crawlsMultiplePages": true
+    },
+    {
+      "slug": "meta-tag-checker",
+      "name": "Meta tag checker",
+      "job": "Inspect metadata and see how it truncates.",
+      "group": "Check a page",
+      "path": "/tools/meta-tag-checker",
+      "metaDescription": "Inspect the title, meta description, canonical, robots, Open Graph and Twitter tags on any page, with pixel-width truncation warnings.",
+      "checks": [
+        "Title and description length in characters and in pixels",
+        "Where each one truncates in a search result",
+        "Canonical tag presence and whether it is self-referencing",
+        "Meta robots and X-Robots-Tag, including conflicts",
+        "Open Graph tags needed for a link preview",
+        "Twitter card tags"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "sitemap-checker",
+      "name": "Sitemap checker",
+      "job": "Validate an XML sitemap and sample its URLs.",
+      "group": "Technical",
+      "path": "/tools/sitemap-checker",
+      "metaDescription": "Validate an XML sitemap: structure, size limits, nesting, lastmod dates, and whether the URLs in it actually return 200.",
+      "checks": [
+        "Valid XML and the right namespace",
+        "More than 50,000 URLs or over 50 MB uncompressed",
+        "Sitemap index nesting handled correctly",
+        "A sample of up to 50 URLs fetched for their real status",
+        "URLs listed in the sitemap but blocked by robots.txt",
+        "Missing or implausible lastmod values"
+      ],
+      "input": "Sitemap address",
+      "crawlsMultiplePages": true
+    },
+    {
+      "slug": "robots-txt-tester",
+      "name": "Robots.txt tester",
+      "job": "Test a path against robots.txt and see which rule wins.",
+      "group": "Technical",
+      "path": "/tools/robots-txt-tester",
+      "metaDescription": "Test any path against a live robots.txt and see exactly which rule matches, for which user-agent, and why.",
+      "checks": [
+        "Which rule matches your path, and why that one wins",
+        "Longest-match precedence, the rule most people get wrong",
+        "Whether you have accidentally blocked the whole site",
+        "Whether a sitemap directive is present",
+        "Per user-agent differences, including Googlebot and Bingbot"
+      ],
+      "input": "Website",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "broken-link-checker",
+      "name": "Broken link checker",
+      "job": "Find broken links on a page.",
+      "group": "Check a page",
+      "path": "/tools/broken-link-checker",
+      "metaDescription": "Find broken links on any page. Checks up to 200 links for 4xx, 5xx, timeouts, redirect chains and mixed content.",
+      "checks": [
+        "Up to 200 links from one page",
+        "4xx and 5xx responses",
+        "Timeouts and connection failures",
+        "Redirect chains worth shortening",
+        "Links to http:// from an https:// page"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": true
+    },
+    {
+      "slug": "redirect-checker",
+      "name": "Redirect checker",
+      "job": "Follow a redirect chain, hop by hop.",
+      "group": "Technical",
+      "path": "/tools/redirect-checker",
+      "metaDescription": "Follow a URL through every redirect hop. See the status at each step, spot loops, and find 302s that should be 301s.",
+      "checks": [
+        "Every hop, in order, with its status code",
+        "Chain length, and whether it is worth collapsing",
+        "Redirect loops",
+        "A 302 where a 301 almost certainly belongs",
+        "A hop that drops from https to http",
+        "The final status and address"
+      ],
+      "input": "Address to follow",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "schema-markup-validator",
+      "name": "Schema markup validator",
+      "job": "Validate structured data.",
+      "group": "Check a page",
+      "path": "/tools/schema-markup-validator",
+      "metaDescription": "Validate structured data on a page or paste your own JSON-LD. Checks types, required properties and conflicting blocks.",
+      "checks": [
+        "Whether the JSON-LD parses at all",
+        "Recognised and unrecognised @type values",
+        "Required properties missing for the declared type",
+        "Recommended properties worth adding",
+        "Two blocks that contradict each other",
+        "Markup describing something that is not on the page"
+      ],
+      "input": "Page address or JSON-LD",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "page-speed-checker",
+      "name": "Page speed checker",
+      "job": "Measure what the document itself costs.",
+      "group": "Check a page",
+      "path": "/tools/page-speed-checker",
+      "metaDescription": "Measure time to first byte, document size, render-blocking resources and image payload. A lab measurement, and we say so.",
+      "checks": [
+        "Time to first byte, measured from our server",
+        "HTML document size before images and scripts",
+        "Render-blocking stylesheets and scripts in the head",
+        "Total image payload declared on the page",
+        "Compression and caching headers"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "hreflang-checker",
+      "name": "Hreflang checker",
+      "job": "Check hreflang, including reciprocity.",
+      "group": "Technical",
+      "path": "/tools/hreflang-checker",
+      "metaDescription": "Check hreflang annotations on any page. We fetch each alternate and verify the return tag, which is where most setups break.",
+      "checks": [
+        "Every hreflang annotation on the page",
+        "Whether each alternate links back — the return tag",
+        "Invalid language or region codes",
+        "A missing self-reference",
+        "A missing or duplicated x-default",
+        "Alternates that redirect or 404"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": true
+    },
+    {
+      "slug": "image-seo-checker",
+      "name": "Image SEO checker",
+      "job": "Check every image on a page.",
+      "group": "Check a page",
+      "path": "/tools/image-seo-checker",
+      "metaDescription": "Check every image on a page for missing alt text, oversized files, missing dimensions and the wrong format for the job.",
+      "checks": [
+        "Images with no alt attribute",
+        "Decorative images given alt text they should not have",
+        "Files larger than they need to be",
+        "A JPEG or PNG where AVIF or WebP belongs",
+        "Missing width and height, which causes layout shift",
+        "No loading hint on images below the fold"
+      ],
+      "input": "Page address",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "serp-preview",
+      "name": "SERP preview",
+      "job": "Preview a search result before you publish it.",
+      "group": "Content and keywords",
+      "path": "/tools/serp-preview",
+      "metaDescription": "Preview how your title and description appear in search results, measured in pixels rather than characters.",
+      "checks": [
+        "Desktop and mobile widths, measured in pixels",
+        "Where the title truncates",
+        "Where the description truncates",
+        "How the URL is displayed as a breadcrumb"
+      ],
+      "input": "Title",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "keyword-questions",
+      "name": "Keyword questions",
+      "job": "Turn one term into the questions around it.",
+      "group": "Content and keywords",
+      "path": "/tools/keyword-questions",
+      "metaDescription": "Expand a seed term into the questions people ask around it. Deterministic patterns, grouped by question type.",
+      "checks": [
+        "Question expansion across who, what, when, where, why, how and which",
+        "Comparison and alternative patterns",
+        "Cost, time and difficulty patterns",
+        "Grouped output you can take straight into a content brief",
+        "No AI, so the same seed always gives the same list"
+      ],
+      "input": "Seed keyword",
+      "crawlsMultiplePages": false
+    },
+    {
+      "slug": "seo-checklist",
+      "name": "SEO checklist",
+      "job": "Work through SEO task by task.",
+      "group": "Content and keywords",
+      "path": "/seo-checklist",
+      "metaDescription": "Work through a practical SEO checklist, grouped by job. Your progress is kept in your own browser.",
+      "checks": [
+        "Grouped by job: technical, on-page, content, local and beyond Google",
+        "Progress kept in your own browser, not on our server",
+        "Each item links to the tool that checks it",
+        "Nothing to sign up for"
+      ],
+      "input": "",
+      "crawlsMultiplePages": false
+    }
+  ],
+  "platform": [
+    {
+      "id": "site-audit",
+      "name": "Site audit and SEO Center",
+      "path": "/platform/site-audit",
+      "summary": "Audit, fix, review and publish SEO changes, with a history you can roll back.",
+      "problem": "You already know your site has SEO problems. You have probably run a crawler and got a spreadsheet of 400 rows. The spreadsheet is not the problem — the problem is that nothing in it ever gets fixed, because fixing means a ticket, a developer, a deploy, and six weeks.",
+      "steps": [
+        {
+          "title": "The audit runs on a schedule",
+          "body": "A sweep reads your pages, sitemap, robots.txt and redirects. Free sites run weekly; paid sites daily or hourly. You do not have to remember to check."
+        },
+        {
+          "title": "Findings become an issue list, not a report",
+          "body": "Each finding is a tracked item with a severity, an owner and a state. It stays open until it is fixed or deliberately dismissed, and dismissing it is a recorded decision."
+        },
+        {
+          "title": "The SEO Center drafts the change",
+          "body": "For the fixable classes of issue — titles, descriptions, canonicals, redirects, schema — it writes the actual replacement rather than telling you to."
+        },
+        {
+          "title": "A human approves a release",
+          "body": "Changes are grouped into a release. Someone reviews the diff and approves it or sends it back. Nothing goes live on its own."
+        },
+        {
+          "title": "It publishes, and you can undo it",
+          "body": "On supported platforms the release publishes directly. The history records what changed, who approved it and when, and the rollback is one click."
+        }
+      ],
+      "limits": {
+        "free": "Unlimited on-demand audits on one website, crawling up to 500 URLs per run, with the whole SEO Center included.",
+        "paid": "Growth raises the crawl to 10,000 URLs and the cadence to daily; Business goes to 100,000 URLs and hourly.",
+        "cannot": "It does not render JavaScript during the public crawl, it cannot see anything behind a login, and direct publishing depends on your platform — see the publishing page for exactly where."
+      },
+      "relatedTools": [
+        "seo-audit",
+        "website-seo-score"
+      ],
+      "faqs": [
+        {
+          "question": "How is this different from running Screaming Frog?",
+          "answer": "Screaming Frog crawls better than we do on very large sites. It then stops. We continue: the finding becomes a tracked issue, a drafted change, an approval and a published page."
+        },
+        {
+          "question": "Will it change my site without asking?",
+          "answer": "No. Every change goes into a release that a person has to approve. There is no mode where it publishes unreviewed SEO changes."
+        }
+      ]
+    },
+    {
+      "id": "page-seo",
+      "name": "Page SEO and on-page",
+      "path": "/platform/page-seo",
+      "summary": "Per-page titles, meta, social cards, schema, the page checklist and URL triage.",
+      "problem": "Titles and meta descriptions are the highest-leverage thing on a page and the most likely to be wrong. They get written once, by whoever built the page, and then never looked at again — so you end up with forty pages sharing one description and a homepage title that says \"Home\".",
+      "steps": [
+        {
+          "title": "Every page gets a record",
+          "body": "Title, description, canonical, robots directives, social cards and schema for each URL, in one list you can sort by what is missing."
+        },
+        {
+          "title": "The page checklist shows what is incomplete",
+          "body": "Per page, not per site: which of the on-page essentials are present, which are missing, and which are present but wrong."
+        },
+        {
+          "title": "Edit the metadata where you can see it",
+          "body": "Change the title and description with the search-result preview beside them, so you see the truncation before you publish it rather than after."
+        },
+        {
+          "title": "URL triage catches the duplicates",
+          "body": "Pages competing for the same intent are grouped so you can merge, redirect or differentiate them — the mistake that quietly costs the most."
+        }
+      ],
+      "limits": {
+        "free": "The whole of Page SEO on one website, with no page-count limit beyond the crawl cap.",
+        "paid": "Higher crawl ceilings, so a large catalogue is covered in one run.",
+        "cannot": "It can only edit metadata it can publish. On an unsupported platform it produces the exact change and an export instead."
+      },
+      "relatedTools": [
+        "seo-checker",
+        "meta-tag-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Does it rewrite my titles automatically?",
+          "answer": "It drafts them. Publishing requires an approved release, and on the free plan AI-written suggestions come out of your 50-post allowance only when you use the AI writer."
+        }
+      ]
+    },
+    {
+      "id": "technical-seo",
+      "name": "Technical SEO",
+      "path": "/platform/technical-seo",
+      "summary": "Health checks, sitemap, robots, redirects, a 404 monitor, crawl intelligence and site quality.",
+      "problem": "Technical SEO fails quietly. A sitemap that stopped updating, a redirect chain four hops long, a noindex that shipped with a staging config — none of it throws an error, and you usually find out when traffic has already gone.",
+      "steps": [
+        {
+          "title": "Health checks run server-side on a schedule",
+          "body": "Pages are fetched from our servers, not from your browser, so the check is the same whoever is logged in."
+        },
+        {
+          "title": "Sitemap and robots.txt are managed, not just read",
+          "body": "See what is in the sitemap, what should be, and what robots.txt is blocking that you did not mean to block."
+        },
+        {
+          "title": "Redirects are a map you can edit",
+          "body": "Chains, loops and 302s that should be 301s are listed, and the redirect map is editable and versioned."
+        },
+        {
+          "title": "The 404 monitor watches what actually breaks",
+          "body": "Real missing URLs with the pages linking to them, so you fix the ones that cost you something."
+        },
+        {
+          "title": "Crawl intelligence shows the shape of the site",
+          "body": "Click depth, orphan pages, and the sections consuming crawl budget without earning it."
+        }
+      ],
+      "limits": {
+        "free": "Health checks, sitemap, robots, redirects and the 404 monitor on one website, weekly, up to 500 URLs per crawl.",
+        "paid": "Daily or hourly checks, and crawls large enough for a real catalogue.",
+        "cannot": "It does not execute JavaScript on the public crawl, it cannot read server logs, and editing robots.txt or redirects live requires a supported publish path."
+      },
+      "relatedTools": [
+        "sitemap-checker",
+        "robots-txt-tester"
+      ],
+      "faqs": [
+        {
+          "question": "Can it edit my robots.txt?",
+          "answer": "Where there is a supported publish path, yes, through an approved release with a rollback. Elsewhere it gives you the exact file to put in place."
+        },
+        {
+          "question": "Does it handle redirect chains?",
+          "answer": "It finds them, shows every hop, and proposes the single redirect that replaces the chain."
+        }
+      ]
+    },
+    {
+      "id": "keywords",
+      "name": "Keyword intelligence",
+      "path": "/platform/keywords",
+      "summary": "Rankings, a keyword library, research imports, and the Question Bank for AI-era queries.",
+      "problem": "Rank tracking tells you a number went down. It rarely tells you which page lost it, what else moved at the same time, or what people are actually asking now that answers come from an AI rather than ten blue links.",
+      "steps": [
+        {
+          "title": "Track the keywords that matter",
+          "body": "Positions over time, with the URL that ranks, so a drop points at a page instead of a mystery."
+        },
+        {
+          "title": "Build a keyword library",
+          "body": "One place for the terms you care about, grouped by topic, shared across content planning and the audit."
+        },
+        {
+          "title": "Import the research you already have",
+          "body": "Bring CSV exports from wherever you did your research. We do not pretend our dataset is the biggest, so we make it easy to use somebody else’s."
+        },
+        {
+          "title": "The Question Bank collects AI-era queries",
+          "body": "The questions people ask in full sentences — the shape that matters when an assistant is answering rather than a results page."
+        }
+      ],
+      "limits": {
+        "free": "200 tracked keywords on one website, the full keyword library, research imports and the Question Bank.",
+        "paid": "Growth tracks 2,000 keywords; Business tracks 10,000.",
+        "cannot": "Our keyword database is smaller than Semrush’s or Ahrefs’. We say so on the comparison pages. If dataset size is your bottleneck, buy one of theirs and import into this."
+      },
+      "relatedTools": [
+        "keyword-questions",
+        "serp-preview"
+      ],
+      "faqs": [
+        {
+          "question": "How big is your keyword database?",
+          "answer": "Smaller than the market leaders, and we are not going to claim otherwise. Tracking, the library and the Question Bank are strong; raw research volume is not where we compete."
+        },
+        {
+          "question": "How often do rankings update?",
+          "answer": "Weekly on the free plan, daily on Growth and hourly on Business."
+        }
+      ]
+    },
+    {
+      "id": "links",
+      "name": "Links and authority",
+      "path": "/platform/links",
+      "summary": "Internal linking suggestions, backlinks and authority tracking.",
+      "problem": "Internal linking is the cheapest ranking improvement available and almost nobody does it, because doing it properly means holding your whole site in your head at once.",
+      "steps": [
+        {
+          "title": "Suggestions come from your own content",
+          "body": "Pages that should link to each other, based on what they are actually about, with the anchor text proposed."
+        },
+        {
+          "title": "Apply a suggestion as a tracked change",
+          "body": "Accepted links go into a release like any other change, so they are reviewed and reversible."
+        },
+        {
+          "title": "Backlinks and authority are tracked alongside",
+          "body": "Referring domains and authority over time, so an internal change and an external one can be read together."
+        }
+      ],
+      "limits": {
+        "free": "Internal linking suggestions in full. Backlinks and authority are read-only.",
+        "paid": "Growth and Business unlock the full backlink workspace.",
+        "cannot": "Our backlink index is far smaller than Ahrefs’. For serious link research, theirs is the better tool and we will not pretend otherwise."
+      },
+      "relatedTools": [
+        "broken-link-checker",
+        "redirect-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Is your backlink index competitive?",
+          "answer": "No. Ahrefs and Semrush have far larger indexes built over far longer. Internal linking is where we are genuinely strong, because it only needs your own site."
+        }
+      ]
+    },
+    {
+      "id": "search-engines",
+      "name": "Beyond Google",
+      "path": "/platform/search-engines",
+      "summary": "Bing, Yandex, Naver, Seznam, Baidu, Brave; IndexNow; Image Search; AI and agent traffic.",
+      "problem": "Nearly every SEO tool is a Google tool with other engines bolted on, if at all. If a meaningful share of your traffic comes from Bing, from Yandex, from Naver, or increasingly from an AI assistant quoting you, you are flying blind on most of your search surface.",
+      "steps": [
+        {
+          "title": "Connect the engines you care about",
+          "body": "Bing Webmaster Tools and Search Console connect through your own grant. Others are covered through our own crawling and submission."
+        },
+        {
+          "title": "Submit through IndexNow",
+          "body": "New and changed URLs are pushed to the participating engines — Bing, Yandex and Seznam — instead of waiting to be discovered."
+        },
+        {
+          "title": "See your image-search inventory",
+          "body": "Which images are indexable, which are missing alt text, and which are too heavy to be served well."
+        },
+        {
+          "title": "Report AI and agent traffic",
+          "body": "Requests arriving from AI assistants and agents, separated from ordinary referrals, so \"nobody clicks any more\" becomes a number instead of a worry."
+        }
+      ],
+      "limits": {
+        "free": "All six non-Google engines, Image Search inventory, IndexNow submission and AI-traffic reporting, on one website.",
+        "paid": "Higher cadence and volume, not a different feature set. This is deliberately not a paid wedge.",
+        "cannot": "The engines do not expose the same data. Bing and Google give rich webmaster data; others give very little, and we show what each one actually provides rather than inventing parity."
+      },
+      "relatedTools": [
+        "image-seo-checker",
+        "hreflang-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Do you get the same data from every engine?",
+          "answer": "No, and anyone claiming to does not. Google and Bing provide detailed webmaster data. For the others we rely on our own crawling and on IndexNow, and each engine block says exactly what it covers."
+        },
+        {
+          "question": "What counts as AI traffic?",
+          "answer": "Requests whose user-agent or referrer identifies an AI assistant or agent. It is a measurement of what reaches your server, not an estimate of what an assistant said about you."
+        }
+      ]
+    },
+    {
+      "id": "local-seo",
+      "name": "Local SEO and reputation",
+      "path": "/platform/local-seo",
+      "summary": "A location registry, landing-page checks, and the review platforms you are missing.",
+      "problem": "Local SEO fails on the boring things: an address written three different ways, a landing page that never mentions the city, and four review platforms your competitors are on and you are not.",
+      "steps": [
+        {
+          "title": "Register your locations",
+          "body": "Each location with its address, hours and service area, in one place rather than scattered across pages."
+        },
+        {
+          "title": "Check the landing pages",
+          "body": "Whether each location page actually carries the signals a local result needs, and which ones are duplicates of each other with the city swapped."
+        },
+        {
+          "title": "Work the review-platform checklist",
+          "body": "The platforms relevant to your sector, which you are present on, and which you are not."
+        }
+      ],
+      "limits": {
+        "free": "One location, with landing-page checks and the full review-platform checklist.",
+        "paid": "Growth covers 25 locations; Business is unlimited.",
+        "cannot": "It does not post to review platforms for you and does not manage replies. It tells you where you should be and what is wrong with the pages you have."
+      },
+      "relatedTools": [
+        "seo-checker",
+        "schema-markup-validator"
+      ],
+      "faqs": [
+        {
+          "question": "Does it manage my Google Business Profile?",
+          "answer": "It checks the signals your location pages send and tracks the platforms you should be listed on. Posting and replying stay with you."
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "name": "Content engine",
+      "path": "/platform/content",
+      "summary": "Strategy and calendar, content clusters, Blog Studio, Auto Blog, help centre and newsletter.",
+      "problem": "You have been told to publish more. You have also seen what \"publish more\" does to a site when it means AI-written filler, and you would rather have no blog than that one.",
+      "steps": [
+        {
+          "title": "Plan around clusters, not one-off posts",
+          "body": "Topics grouped into clusters with a hub page and supporting pages, so the content has a shape instead of being a list."
+        },
+        {
+          "title": "Draft in Blog Studio",
+          "body": "A draft is generated from a brief, a title or a keyword — and then it waits. Blog Studio holds an approve-to-publish lock."
+        },
+        {
+          "title": "A human approves before anything goes live",
+          "body": "This is a lock, not a setting we encourage you to turn off. Nothing publishes to your site without a person agreeing to it."
+        },
+        {
+          "title": "A brand check runs on every post",
+          "body": "Posts are checked against your brand rules before publishing, and a brand failure keeps the post as a draft."
+        },
+        {
+          "title": "The calendar keeps it honest",
+          "body": "What is planned, what is drafted, what is approved and what is published, with the keyword each piece is for."
+        }
+      ],
+      "limits": {
+        "free": "50 AI-written posts per company, for ever. Content clusters, the strategy calendar and Blog Studio are all included.",
+        "paid": "Growth adds 300 posts a month and Auto Blog; Business adds 1,500 a month.",
+        "cannot": "Auto Blog, the unattended daily publisher, is not on the free plan. And volume is not the pitch — the cap is 50 for a reason."
+      },
+      "relatedTools": [
+        "keyword-questions",
+        "seo-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Is this another AI slop generator?",
+          "answer": "A human approves every post, a brand check runs on each one, and the free cap is 50 for ever. If volume were the pitch, that cap would be a strange way to sell it."
+        },
+        {
+          "question": "Does the AI see my other customers’ content?",
+          "answer": "No. One customer’s content never appears in another customer’s prompt."
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Competitive and market intel",
+      "path": "/platform/intelligence",
+      "summary": "Competitors, AI research, Market Radar and page opportunities.",
+      "problem": "Competitive research is usually a one-off: someone does a deep dive, writes a deck, and the deck is out of date within a month. Meanwhile the pages your competitors quietly published last week are the ones taking your traffic.",
+      "steps": [
+        {
+          "title": "Keep a competitor list that stays current",
+          "body": "The sites you actually compete with, tracked rather than researched once."
+        },
+        {
+          "title": "Find the pages you have not written",
+          "body": "Page opportunities: queries where competitors rank and you have nothing, ranked by what they would be worth to you."
+        },
+        {
+          "title": "Run research when you need depth",
+          "body": "AI-assisted research for a market or a segment, when a question needs more than a list."
+        }
+      ],
+      "limits": {
+        "free": "The competitor list is included.",
+        "paid": "AI research and the market intelligence workspace are on Growth and Business.",
+        "cannot": "We do not estimate a competitor’s traffic and present it as fact. Where a number is modelled rather than measured, the page says so."
+      },
+      "relatedTools": [
+        "seo-checker",
+        "keyword-questions"
+      ],
+      "faqs": [
+        {
+          "question": "Do you show competitor traffic estimates?",
+          "answer": "We show what we can measure and label what is modelled. Precise-looking traffic estimates for somebody else’s site are guesses with error bars nobody prints."
+        }
+      ]
+    },
+    {
+      "id": "site-intelligence",
+      "name": "Site intelligence and ops",
+      "path": "/platform/site-intelligence",
+      "summary": "Field and lab speed, crawl health, demand, the page report card, Connect and team roles.",
+      "problem": "Speed tooling gives you a score out of 100 from a lab test on a machine nothing like your visitor’s phone. Meanwhile the actual question — is this page getting slower, and does it matter — goes unanswered.",
+      "steps": [
+        {
+          "title": "Connect your site once",
+          "body": "A five-step flow connects Search Console, analytics and the crawler. It is the first thing you do and it takes a couple of minutes."
+        },
+        {
+          "title": "Field data alongside lab data",
+          "body": "Real-user measurements where they are available, next to the lab numbers, so you can tell a real regression from a noisy test."
+        },
+        {
+          "title": "Read the page report card",
+          "body": "Per page: speed, demand, issues and content state, in one view, instead of four tools."
+        },
+        {
+          "title": "Work the site checklist to green",
+          "body": "The same checklist we hold our own sites to. If ours is not green, we have no business selling it."
+        }
+      ],
+      "limits": {
+        "free": "Site Intelligence in full on one website, with Search Console, GA4 and Clarity connected, on a weekly cadence.",
+        "paid": "Daily or hourly refresh.",
+        "cannot": "Field data only exists where there is enough real traffic to report it. On a quiet site you will see lab numbers only, and the page says which is which."
+      },
+      "relatedTools": [
+        "page-speed-checker",
+        "website-seo-score"
+      ],
+      "faqs": [
+        {
+          "question": "Is this a PageSpeed Insights wrapper?",
+          "answer": "No. We measure from our own crawl and read field data where it exists, then track it over time against the rest of your SEO state."
+        }
+      ]
+    },
+    {
+      "id": "publishing",
+      "name": "Publishing",
+      "path": "/platform/publishing",
+      "summary": "The release, approve, publish and rollback loop — and exactly where it can publish.",
+      "problem": "Every SEO tool stops at the recommendation. The gap between \"your title should say X\" and your title actually saying X is where SEO projects die — it needs a developer, a deploy and a reason to prioritise it.",
+      "steps": [
+        {
+          "title": "Changes are grouped into a release",
+          "body": "Not a stream of individual edits. A release is a reviewable set with a diff."
+        },
+        {
+          "title": "Someone approves it",
+          "body": "The approval is recorded: who, what and when. This is not optional."
+        },
+        {
+          "title": "It publishes where it can",
+          "body": "On a supported platform the release is applied directly to your site."
+        },
+        {
+          "title": "Everywhere else, you get the exact change and an export",
+          "body": "The precise before and after, and a file you can apply. You are never guessing what to paste where."
+        },
+        {
+          "title": "The rollback is one click",
+          "body": "The history keeps what changed and lets you reverse it."
+        }
+      ],
+      "limits": {
+        "free": "The full release, approve, publish and rollback loop on one website.",
+        "paid": "Same loop, more sites and a higher cadence.",
+        "cannot": "Direct publishing depends on your platform having a supported path. Where it does not, you get a staged change set, a diff and an export — which is honest, and still far more than a recommendation. The current capability list lives in the docs and we keep it current."
+      },
+      "relatedTools": [
+        "seo-audit",
+        "meta-tag-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Which platforms can you publish to directly?",
+          "answer": "The capability list is in the docs rather than on this page, because it changes. If yours is not on it, the export path still works and nothing else about the product changes."
+        },
+        {
+          "question": "What if a published change makes things worse?",
+          "answer": "Roll it back from the history. The previous state is kept precisely so that is one click."
+        }
+      ]
+    },
+    {
+      "id": "roles-and-permissions",
+      "name": "Roles and permissions",
+      "path": "/platform/roles-and-permissions",
+      "summary": "Organizations, roles and per-site scoping, enforced in the database.",
+      "problem": "Most SEO tools model your clients as \"projects\" in one account. That means a junior who needs to read one report can see all of them, and your isolation is a UI filter rather than a boundary.",
+      "steps": [
+        {
+          "title": "A company is the unit, not a project",
+          "body": "Each client is an organization with its own sites, its own members and its own roles."
+        },
+        {
+          "title": "Isolation is enforced in the database",
+          "body": "Row-level security on every table, not a check in the application layer that a bug can skip."
+        },
+        {
+          "title": "Scope a member to specific sites",
+          "body": "Someone can be given one site rather than all of them, with the permissions they actually need."
+        },
+        {
+          "title": "Permissions are per section",
+          "body": "Reading the blog list does not silently grant the ability to spend AI credits. Those are separate permissions on purpose."
+        }
+      ],
+      "limits": {
+        "free": "Two team members on one website, with the full role model.",
+        "paid": "Growth allows ten members; Business is unlimited.",
+        "cannot": "Single sign-on and SCIM provisioning are not built. If you need them, say so and we will tell you honestly where that sits."
+      },
+      "relatedTools": [
+        "seo-audit",
+        "website-seo-score"
+      ],
+      "faqs": [
+        {
+          "question": "How is tenant isolation actually enforced?",
+          "answer": "By row-level security policies in the database, so a query from one company cannot return another company’s rows even if application code gets it wrong."
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "name": "API and MCP",
+      "path": "/platform/api",
+      "summary": "The public API and the MCP server, on the Business plan.",
+      "problem": "If SEO data cannot reach your own dashboards, your own scripts and your own agents, it stays in somebody else’s interface and never becomes part of how you actually work.",
+      "steps": [
+        {
+          "title": "A REST API over your own data",
+          "body": "Sites, audits, findings, keywords and content, scoped to your organization."
+        },
+        {
+          "title": "An MCP server for agents",
+          "body": "The same data exposed so an AI agent can read it directly, with your organization’s permissions applied."
+        },
+        {
+          "title": "Scoped keys",
+          "body": "Keys carry the same per-site scoping as a member, so an integration gets exactly what it needs."
+        }
+      ],
+      "limits": {
+        "free": "Not included.",
+        "paid": "Business plan.",
+        "cannot": "It is a read and management API for your own organization. It is not a data product, and it does not resell keyword or backlink data."
+      },
+      "relatedTools": [
+        "seo-audit",
+        "sitemap-checker"
+      ],
+      "faqs": [
+        {
+          "question": "Is there a free API tier?",
+          "answer": "No. The API and the MCP server are on the Business plan."
+        }
+      ]
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agencies",
+      "name": "SEO agencies",
+      "path": "/solutions/agencies",
+      "description": "Run SEO for many clients with real isolation, per-site roles and per-site pricing. Each client is a company in the database, not a folder in your account.",
+      "problem": "You are running SEO for eight clients on a spreadsheet and one expensive seat that three people share. The junior who needs to read one report can see all eight, your \"client separation\" is a dropdown filter, and you pay per seat for someone who only needs view access.",
+      "behaviours": [
+        {
+          "title": "Each client is an organization, not a project",
+          "body": "Its own sites, its own members, its own roles — and isolation enforced by row-level security in the database rather than a filter in the interface.",
+          "href": "/platform/roles-and-permissions"
+        },
+        {
+          "title": "Scope a member to one site",
+          "body": "A contractor working on one client gets exactly that client. A junior who needs to read reports gets read access to what they need and nothing else.",
+          "href": "/platform/roles-and-permissions"
+        },
+        {
+          "title": "Priced per site, not per seat",
+          "body": "Adding a reviewer does not add to the bill. That is the pricing model agencies ask for and rarely get.",
+          "href": "/pricing"
+        },
+        {
+          "title": "The fix ships, so the retainer shows work",
+          "body": "A release with an approval trail is a far better monthly report than a list of recommendations nobody actioned.",
+          "href": "/platform/publishing"
+        }
+      ],
+      "checklist": [
+        "One organization per client, never a shared account",
+        "Scope every contractor to the sites they work on",
+        "Connect each client’s own Search Console through their own grant",
+        "Use releases so the approval trail is the client report",
+        "Keep a per-client site checklist and work it to green"
+      ],
+      "faqs": [
+        {
+          "question": "Can my client see their own data without seeing other clients?",
+          "answer": "Yes. Each client is a separate organization and isolation is enforced in the database, so a query from one cannot return another’s rows."
+        },
+        {
+          "question": "Do I pay for every person who logs in?",
+          "answer": "No. Pricing is per website. Seats are included per plan rather than charged individually."
+        }
+      ]
+    },
+    {
+      "slug": "ecommerce",
+      "name": "E-commerce",
+      "path": "/solutions/ecommerce",
+      "description": "Catalogue SEO without the spreadsheet: duplicate variant pages, facet URLs eating crawl budget, thin categories and images that are too heavy.",
+      "problem": "Your catalogue generates more URLs than anyone intended. Facets multiply, variants duplicate, categories with four products read as thin, and the hero images are two megabytes each. None of it is a bug, so nothing flags it.",
+      "behaviours": [
+        {
+          "title": "Crawl intelligence finds the URL explosion",
+          "body": "Click depth and crawl-budget consumption per section, so you can see which facet combination is generating ten thousand near-identical pages.",
+          "href": "/platform/technical-seo"
+        },
+        {
+          "title": "URL triage groups the duplicates",
+          "body": "Variant pages competing for one query are grouped so you can canonicalise, merge or differentiate them deliberately.",
+          "href": "/platform/page-seo"
+        },
+        {
+          "title": "Image SEO across the catalogue",
+          "body": "Missing alt text, oversized files and the wrong format, counted across every product page rather than spot-checked.",
+          "href": "/platform/search-engines"
+        },
+        {
+          "title": "Product schema validated, not assumed",
+          "body": "Structured data checked for the properties rich results actually need, instead of trusting the theme that generated it.",
+          "href": "/platform/page-seo"
+        }
+      ],
+      "checklist": [
+        "Decide which facet URLs should be indexable, and block the rest",
+        "Canonicalise variants to a single product page",
+        "Give thin category pages genuine copy or merge them",
+        "Serve product images as AVIF or WebP at display size",
+        "Validate Product and Offer schema on a sample of real pages",
+        "Keep out-of-stock pages returning 200 with a clear state, not 404"
+      ],
+      "faqs": [
+        {
+          "question": "Will it crawl my whole catalogue?",
+          "answer": "On the free plan it crawls up to 500 URLs per run, which samples a catalogue rather than covering it. Growth raises that to 10,000 and Business to 100,000."
+        }
+      ]
+    },
+    {
+      "slug": "saas",
+      "name": "SaaS",
+      "path": "/solutions/saas",
+      "description": "SaaS SEO is feature pages, comparison pages and documentation. We audit all three, draft the fix, and publish it after approval.",
+      "problem": "Your marketing site gets attention and your documentation does not, even though docs answer the long-tail questions buyers actually search. Meanwhile your feature pages all share one meta description because they came from the same template.",
+      "behaviours": [
+        {
+          "title": "Templated pages are caught as duplicates",
+          "body": "Pages sharing a title or description are grouped, which is exactly what a templated feature or integration set produces.",
+          "href": "/platform/page-seo"
+        },
+        {
+          "title": "The Question Bank finds buyer questions",
+          "body": "The full-sentence questions people ask about a category — the shape that matters now answers come from assistants as well as results pages.",
+          "href": "/platform/keywords"
+        },
+        {
+          "title": "AI-answer visibility is measured",
+          "body": "Traffic arriving from AI assistants is reported separately, so you can see whether your docs are being used as a source.",
+          "href": "/platform/search-engines"
+        },
+        {
+          "title": "Content clusters give the docs a shape",
+          "body": "A hub and its supporting pages, so documentation feeds the cluster instead of sitting beside it.",
+          "href": "/platform/content"
+        }
+      ],
+      "checklist": [
+        "Give every feature page a title and description that is true of it alone",
+        "Make sure docs are crawlable and in the sitemap",
+        "Build one comparison page per serious competitor, honestly",
+        "Group docs into clusters with a hub page",
+        "Track which pages AI assistants are citing"
+      ],
+      "faqs": [
+        {
+          "question": "Can it audit a docs site on a subdomain?",
+          "answer": "Yes. Subdomains added to the same site record count as one website, so docs.example.com and example.com are covered together on the free plan."
+        }
+      ]
+    },
+    {
+      "slug": "local-business",
+      "name": "Local business",
+      "path": "/solutions/local-business",
+      "description": "Location pages that actually carry local signals, consistent details, and the review platforms you are missing. One location free, for ever.",
+      "problem": "You have a website, a Google listing and a nagging sense that competitors with worse work are above you. Usually it is the boring things: an address written three ways, a location page that never names the suburb, and four review platforms you have never heard of.",
+      "behaviours": [
+        {
+          "title": "A location registry, not a page",
+          "body": "Each location with its address, hours and service area recorded once, so the details stop drifting between pages.",
+          "href": "/platform/local-seo"
+        },
+        {
+          "title": "Landing-page checks per location",
+          "body": "Whether each location page carries the signals a local result needs, and which pages are duplicates with the city swapped.",
+          "href": "/platform/local-seo"
+        },
+        {
+          "title": "The review-platform checklist",
+          "body": "The platforms relevant to your sector, which you are on, and which you are not. The gap is usually the finding.",
+          "href": "/platform/local-seo"
+        }
+      ],
+      "checklist": [
+        "Write the business name, address and phone number identically everywhere",
+        "Give each location its own page with genuinely local content",
+        "Add LocalBusiness schema with the real opening hours",
+        "Claim the review platforms your sector uses",
+        "Make sure the phone number is a link on mobile"
+      ],
+      "faqs": [
+        {
+          "question": "Is one location really enough on the free plan?",
+          "answer": "For a single-site business, yes — that is the whole job. Growth covers 25 locations if you expand."
+        }
+      ]
+    },
+    {
+      "slug": "publishers",
+      "name": "Publishers",
+      "path": "/solutions/publishers",
+      "description": "Large archives have specific problems: content decay, crawl budget spent on pages nobody reads, and index bloat. We measure all three.",
+      "problem": "You have twelve years of articles. A tenth of them bring almost all the traffic, a third have decayed quietly, and the crawler is spending its time on tag pages from 2014. Nobody has the hours to go through it by hand.",
+      "behaviours": [
+        {
+          "title": "Crawl intelligence shows where budget goes",
+          "body": "Click depth, orphan pages and the sections consuming crawl budget without earning it — the archive question, answered with numbers.",
+          "href": "/platform/technical-seo"
+        },
+        {
+          "title": "Rankings tied to the page that holds them",
+          "body": "When a position drops, you see which URL lost it, which is how you find decay instead of guessing at it.",
+          "href": "/platform/keywords"
+        },
+        {
+          "title": "Internal linking from your own archive",
+          "body": "Suggestions drawn from content you already have, which is where a large archive has an advantage nothing else can match.",
+          "href": "/platform/links"
+        },
+        {
+          "title": "Image search inventory across the archive",
+          "body": "Years of images with no alt text are both an accessibility problem and unindexed inventory.",
+          "href": "/platform/search-engines"
+        }
+      ],
+      "checklist": [
+        "Find and fix orphan pages in the archive",
+        "Decide which tag and date archives should be indexable",
+        "Refresh or consolidate decayed articles rather than deleting them",
+        "Add internal links from old articles to current hubs",
+        "Keep the sitemap limited to pages worth crawling"
+      ],
+      "faqs": [
+        {
+          "question": "Can it handle an archive of 100,000 pages?",
+          "answer": "Business crawls up to 100,000 URLs per run. The free plan samples 500, which is enough to find the patterns but not to cover an archive that size."
+        }
+      ]
+    },
+    {
+      "slug": "developers",
+      "name": "Developers",
+      "path": "/solutions/developers",
+      "description": "SEO as reviewable changes: a redirect map you can edit, a 404 monitor that watches what actually breaks, and an API and MCP server.",
+      "problem": "SEO reaches you as a spreadsheet from someone else, with no context about which rows matter and no way to tell whether last month’s changes helped. Then you are asked to action 400 of them before Friday.",
+      "behaviours": [
+        {
+          "title": "Changes are releases with diffs",
+          "body": "A reviewable set with a before and after, an approval and a rollback — the workflow you already use, applied to SEO.",
+          "href": "/platform/publishing"
+        },
+        {
+          "title": "Sitemaps, robots and redirects as managed state",
+          "body": "A redirect map you can edit and version, robots rules you can test, and a 404 monitor that reports what is actually breaking.",
+          "href": "/platform/technical-seo"
+        },
+        {
+          "title": "An API and an MCP server",
+          "body": "Read your own audits, findings and keywords from your own scripts, dashboards or agents.",
+          "href": "/platform/api"
+        },
+        {
+          "title": "Findings ranked by cost, not count",
+          "body": "A noindex in production outranks a short title. The list is ordered so the first thing you fix is the thing worth fixing.",
+          "href": "/platform/site-audit"
+        }
+      ],
+      "checklist": [
+        "Serve a correct sitemap and declare it in robots.txt",
+        "Collapse redirect chains to a single hop",
+        "Return the right status codes, including 410 for genuinely gone pages",
+        "Set canonical, lang and viewport on every template",
+        "Keep render-blocking resources out of the head",
+        "Watch for a noindex escaping from staging"
+      ],
+      "faqs": [
+        {
+          "question": "Is the API available on the free plan?",
+          "answer": "No. The API and the MCP server are on the Business plan."
+        },
+        {
+          "question": "Does the free audit render JavaScript?",
+          "answer": "No. The public tools fetch and parse without rendering, which is one less abuse vector and one less bill. A page built entirely client-side will look emptier to the public tool than it does to you."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "question": "Is it really free?",
+      "answer": "Yes, for one website, with the limits published on this page. No card, no expiry, and not limited to a single person — you get two seats.",
+      "page": "/pricing"
+    },
+    {
+      "question": "What is the catch?",
+      "answer": "More websites, more AI, a bigger team, PR and Media, and the API are paid. That is the whole catch, and it is on the pricing page rather than hidden in your head.",
+      "page": "/pricing"
+    },
+    {
+      "question": "Will you change the free plan later?",
+      "answer": "If we ever reduce it, companies already on the free plan keep the limits they signed up with. The limits are versioned and dated on this site, with a changelog.",
+      "page": "/pricing"
+    },
+    {
+      "question": "Do I need a credit card?",
+      "answer": "No. There is no card field in signup, because there is nothing to charge you for on the free plan.",
+      "page": "/pricing"
+    },
+    {
+      "question": "How many AI blog posts do I get?",
+      "answer": "Fifty per company, for ever. Only a post that is actually written counts, and a meter shows your remaining balance before you spend it — the same number the product enforces.",
+      "page": "/pricing"
+    },
+    {
+      "question": "Can it publish changes to my site?",
+      "answer": "On supported platforms, yes — it publishes after a human approves, and keeps a rollback. Everywhere else it prepares the exact change, shows you the diff and hands you an export. The capability list is in the docs.",
+      "page": "/"
+    },
+    {
+      "question": "Do you crawl my site politely?",
+      "answer": "Yes. We send an identified user-agent, respect robots.txt, cap how many pages we fetch in one run, and publish those limits. We sell SEO; crawling badly would be a strange way to do it.",
+      "page": "/free-seo"
+    },
+    {
+      "question": "What do you store when I use a free tool without an account?",
+      "answer": "The tool you ran, your site hostname, a hashed IP and timings. Not the query string, not the page content, and nothing that identifies you personally.",
+      "page": "/free-seo"
+    },
+    {
+      "question": "How is this different from Google Search Console?",
+      "answer": "Search Console tells you what happened. We tell you what to change, draft the change, publish it once a human approves, and keep a rollback. We also read five engines Search Console does not.",
+      "page": "/"
+    },
+    {
+      "question": "Can I use it for client sites?",
+      "answer": "Yes. Each client is a company with its own sites, members and roles, isolated in the database. You pay per site, not per seat.",
+      "page": "/pricing"
+    },
+    {
+      "question": "Is my data used to train AI?",
+      "answer": "No. Your content is never used in another customer’s prompt, never sold, and never used to train a public model.",
+      "page": "/free-plan"
+    },
+    {
+      "question": "Can I export everything and leave?",
+      "answer": "Yes. Export is self-serve, and the deletion path is documented and tested rather than promised.",
+      "page": "/pricing"
+    },
+    {
+      "question": "Who is behind it?",
+      "answer": "Meru Technosoft — the team behind HelloGrowthCRM, HelloBooks and HelloTime. This is the SEO platform we built to run our own sites, opened up.",
+      "page": "/free-plan"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "indexable",
+      "label": "Can it be found at all",
+      "intro": "Start here. Everything below is wasted if the answer to any of these is no.",
+      "items": [
+        {
+          "id": "chk-https",
+          "title": "The site is served over HTTPS",
+          "why": "Browsers mark http as not secure, and https has been a ranking signal for years.",
+          "toolHref": "/tools/seo-checker"
+        },
+        {
+          "id": "chk-noindex",
+          "title": "No noindex left in production",
+          "why": "A noindex that escaped from staging removes the page from search entirely. It is the most expensive accident in SEO.",
+          "toolHref": "/tools/meta-tag-checker"
+        },
+        {
+          "id": "chk-robots",
+          "title": "robots.txt does not block what you want indexed",
+          "why": "One stray Disallow line can remove a whole section from every search engine.",
+          "toolHref": "/tools/robots-txt-tester"
+        },
+        {
+          "id": "chk-sitemap",
+          "title": "An XML sitemap exists and is declared in robots.txt",
+          "why": "It is how a new or deep page gets discovered in days rather than weeks.",
+          "toolHref": "/tools/sitemap-checker"
+        },
+        {
+          "id": "chk-sitemap-clean",
+          "title": "The sitemap only lists live, canonical, indexable URLs",
+          "why": "A sitemap full of redirects and 404s teaches crawlers to trust it less.",
+          "toolHref": "/tools/sitemap-checker"
+        },
+        {
+          "id": "chk-search-console",
+          "title": "Search Console and Bing Webmaster Tools are verified",
+          "why": "They are the only direct report of what the engines actually see."
+        }
+      ]
+    },
+    {
+      "id": "onpage",
+      "label": "On-page basics",
+      "intro": "The highest-leverage things on a page, and the most likely to have been written once and forgotten.",
+      "items": [
+        {
+          "id": "chk-title",
+          "title": "Every page has a unique title of roughly 50–60 characters",
+          "why": "The title is the strongest on-page signal and the clickable line in every result.",
+          "toolHref": "/tools/meta-tag-checker"
+        },
+        {
+          "id": "chk-desc",
+          "title": "Every page has a unique meta description",
+          "why": "Without one the engine writes its own snippet, and it is rarely the pitch you would choose.",
+          "toolHref": "/tools/meta-tag-checker"
+        },
+        {
+          "id": "chk-h1",
+          "title": "Exactly one H1 per page, and headings in order",
+          "why": "The outline is what screen readers and crawlers use to understand the page.",
+          "toolHref": "/tools/seo-checker"
+        },
+        {
+          "id": "chk-canonical",
+          "title": "A self-referencing canonical on every page",
+          "why": "Without it, parameter and duplicate URLs can be indexed instead of the one you want.",
+          "toolHref": "/tools/meta-tag-checker"
+        },
+        {
+          "id": "chk-thin",
+          "title": "No thin pages competing for the same query",
+          "why": "Two pages for one intent means neither wins cleanly. Merge or differentiate them.",
+          "toolHref": "/tools/seo-checker"
+        },
+        {
+          "id": "chk-og",
+          "title": "Open Graph and Twitter card tags are present",
+          "why": "Without them a shared link renders as a bare URL instead of a preview.",
+          "toolHref": "/tools/meta-tag-checker"
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "label": "Technical health",
+      "intro": "The things that fail quietly, with no error, until traffic has already gone.",
+      "items": [
+        {
+          "id": "chk-broken",
+          "title": "No broken internal links",
+          "why": "They waste crawl budget, lose link equity, and send real visitors to a dead end.",
+          "toolHref": "/tools/broken-link-checker"
+        },
+        {
+          "id": "chk-redirects",
+          "title": "Redirect chains collapsed to a single hop",
+          "why": "Every hop costs time and loses a little signal.",
+          "toolHref": "/tools/redirect-checker"
+        },
+        {
+          "id": "chk-301",
+          "title": "Permanent moves use 301, not 302",
+          "why": "A temporary redirect tells engines to keep the old URL indexed.",
+          "toolHref": "/tools/redirect-checker"
+        },
+        {
+          "id": "chk-404",
+          "title": "Gone pages return 404 or 410, not a soft 200",
+          "why": "A \"not found\" page returning 200 gets indexed as a real page."
+        },
+        {
+          "id": "chk-mixed",
+          "title": "No mixed content on HTTPS pages",
+          "why": "Browsers block or warn on it, which breaks the page and the padlock.",
+          "toolHref": "/tools/seo-checker"
+        },
+        {
+          "id": "chk-schema",
+          "title": "Structured data parses and has its required properties",
+          "why": "Invalid JSON-LD is ignored entirely, so the markup does nothing at all.",
+          "toolHref": "/tools/schema-markup-validator"
+        }
+      ]
+    },
+    {
+      "id": "speed",
+      "label": "Speed and mobile",
+      "intro": "Measured, not guessed. Most of this is images.",
+      "items": [
+        {
+          "id": "chk-ttfb",
+          "title": "Time to first byte under about 800ms",
+          "why": "Everything else waits for the first byte, so a slow server delays every Core Web Vital.",
+          "toolHref": "/tools/page-speed-checker"
+        },
+        {
+          "id": "chk-compression",
+          "title": "Text responses are compressed",
+          "why": "Compression typically cuts HTML transfer by about 70% for one line of server config.",
+          "toolHref": "/tools/page-speed-checker"
+        },
+        {
+          "id": "chk-images-format",
+          "title": "Images served as AVIF or WebP at display size",
+          "why": "Oversized images are usually the single biggest cause of a slow page on mobile.",
+          "toolHref": "/tools/image-seo-checker"
+        },
+        {
+          "id": "chk-images-dims",
+          "title": "Images have width and height set",
+          "why": "Without them the page jumps as images load, which is cumulative layout shift.",
+          "toolHref": "/tools/image-seo-checker"
+        },
+        {
+          "id": "chk-alt",
+          "title": "Every meaningful image has alt text",
+          "why": "Screen readers cannot describe them and image search cannot index them.",
+          "toolHref": "/tools/image-seo-checker"
+        },
+        {
+          "id": "chk-viewport",
+          "title": "A viewport meta tag is present",
+          "why": "Without it mobile browsers render at desktop width and zoom out.",
+          "toolHref": "/tools/seo-checker"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Content and intent",
+      "intro": "The part no tool can check for you, which is why it is the part that decides the outcome.",
+      "items": [
+        {
+          "id": "chk-intent",
+          "title": "Each page answers one query, in the first sixty words",
+          "why": "If the answer is below the fold, the visitor is already back on the results page."
+        },
+        {
+          "id": "chk-unique",
+          "title": "Each page says something the top results do not",
+          "why": "Matching the existing answers is how you rank eleventh."
+        },
+        {
+          "id": "chk-internal-links",
+          "title": "Related pages link to each other with descriptive anchors",
+          "why": "Internal linking is the cheapest ranking improvement available and almost nobody does it."
+        },
+        {
+          "id": "chk-depth",
+          "title": "Every page is within three clicks of the home page",
+          "why": "Click depth is a strong predictor of how often a page is re-crawled."
+        },
+        {
+          "id": "chk-dates",
+          "title": "Updated pages have an honest dateModified",
+          "why": "Bumping the date without changing the content is a trick engines learned to ignore."
+        },
+        {
+          "id": "chk-author",
+          "title": "Content has a real, attributable author",
+          "why": "An \"Admin\" byline tells a reader nothing and helps nothing."
+        }
+      ]
+    },
+    {
+      "id": "beyond",
+      "label": "Beyond Google",
+      "intro": "Usually skipped entirely, which is exactly why it is worth doing.",
+      "items": [
+        {
+          "id": "chk-bing",
+          "title": "Bing Webmaster Tools is verified",
+          "why": "Bing powers more search than most people assume, including several AI assistants."
+        },
+        {
+          "id": "chk-indexnow",
+          "title": "IndexNow is set up for new and changed URLs",
+          "why": "It pushes URLs to Bing, Yandex and Seznam instead of waiting to be discovered."
+        },
+        {
+          "id": "chk-hreflang",
+          "title": "If you serve several languages, hreflang return tags are correct",
+          "why": "Without a return tag the whole hreflang set is ignored, which is where most setups break.",
+          "toolHref": "/tools/hreflang-checker"
+        },
+        {
+          "id": "chk-ai-crawlers",
+          "title": "You have decided, deliberately, whether AI crawlers may read your content",
+          "why": "Either answer is defensible. Not having decided is the problem.",
+          "toolHref": "/tools/robots-txt-tester"
+        },
+        {
+          "id": "chk-llms",
+          "title": "An llms.txt exists if you want to be summarised accurately",
+          "why": "Cheap, and it gives an assistant a correct description rather than a guessed one."
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "$comment": "SINGLE SOURCE OF TRUTH for every number on /pricing, /free-plan and /docs/limits (PLAN-MTA-0035 §4.2, §8.14, W0.3). Nothing here may be restated as a literal in a page. Prices are null on purpose: the plan specifies entitlements but no currency figures, and D4 is not signed off.",
+    "version": "2026-10-09.1",
+    "status": "proposed",
+    "approvedBy": null,
+    "approvedOn": null,
+    "sourceOfTruth": "docs/plans/2026-10-09-plan-mta-0035-maharadar-marketing-website.md §4.2",
+    "enforcementVerified": false,
+    "tiers": [
+      {
+        "id": "free",
+        "name": "Free",
+        "tagline": "The real thing, not the demo.",
+        "price": {
+          "status": "free",
+          "amount": 0,
+          "currency": null,
+          "period": null,
+          "display": "Free"
+        },
+        "highlight": true,
+        "cta": {
+          "label": "Start free",
+          "href": "/signup",
+          "external": true
+        },
+        "note": "No card. No expiry. Not limited to one person."
+      },
+      {
+        "id": "growth",
+        "name": "Growth",
+        "tagline": "More sites, more AI, daily data.",
+        "price": {
+          "status": "not-published",
+          "amount": null,
+          "currency": null,
+          "period": null,
+          "display": "Pricing in review"
+        },
+        "highlight": false,
+        "cta": {
+          "label": "Talk to us",
+          "href": "/contact",
+          "external": false
+        },
+        "note": "Decision D4 is signed off in principle, but no figure has been approved. We will not print a number we have not committed to."
+      },
+      {
+        "id": "business",
+        "name": "Business",
+        "tagline": "Agencies, portfolios and the API.",
+        "price": {
+          "status": "not-published",
+          "amount": null,
+          "currency": null,
+          "period": null,
+          "display": "Pricing in review"
+        },
+        "highlight": false,
+        "cta": {
+          "label": "Talk to us",
+          "href": "/contact",
+          "external": false
+        },
+        "note": "Decision D4 is signed off in principle, but no figure has been approved."
+      }
+    ],
+    "rows": [
+      {
+        "id": "websites",
+        "label": "Websites",
+        "group": "Scale",
+        "free": "1",
+        "growth": "5",
+        "business": "25",
+        "emphasis": "free"
+      },
+      {
+        "id": "team-members",
+        "label": "Team members",
+        "group": "Scale",
+        "free": "2",
+        "growth": "10",
+        "business": "Unlimited"
+      },
+      {
+        "id": "seo-center",
+        "label": "Full SEO Center (audit, fix, release, publish, rollback)",
+        "group": "Audit and fix",
+        "free": "Yes, all of it",
+        "growth": "Yes",
+        "business": "Yes",
+        "emphasis": "free"
+      },
+      {
+        "id": "site-audits",
+        "label": "Site audits",
+        "group": "Audit and fix",
+        "free": "Unlimited, on demand",
+        "growth": "Unlimited",
+        "business": "Unlimited",
+        "emphasis": "free",
+        "footnote": "rate-limit"
+      },
+      {
+        "id": "urls-per-crawl",
+        "label": "URLs per crawl",
+        "group": "Audit and fix",
+        "free": "500",
+        "growth": "10,000",
+        "business": "100,000"
+      },
+      {
+        "id": "tracked-keywords",
+        "label": "Tracked keywords",
+        "group": "Keywords",
+        "free": "200",
+        "growth": "2,000",
+        "business": "10,000"
+      },
+      {
+        "id": "keyword-library",
+        "label": "Keyword library and research imports",
+        "group": "Keywords",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "question-bank",
+        "label": "Question Bank (AI-era queries)",
+        "group": "Keywords",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "technical-seo",
+        "label": "Technical SEO: sitemap, robots, redirects, 404 monitor, health",
+        "group": "Technical",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes",
+        "emphasis": "free"
+      },
+      {
+        "id": "internal-linking",
+        "label": "Internal linking suggestions",
+        "group": "Technical",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "backlinks",
+        "label": "Backlinks and authority",
+        "group": "Technical",
+        "free": "Read-only",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "non-google",
+        "label": "Non-Google engines (Bing, Yandex, Naver, Seznam, Baidu, Brave)",
+        "group": "Beyond Google",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes",
+        "emphasis": "free"
+      },
+      {
+        "id": "image-search",
+        "label": "Image Search inventory",
+        "group": "Beyond Google",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "local-seo",
+        "label": "Local SEO (locations and landing-page checks)",
+        "group": "Local",
+        "free": "1 location",
+        "growth": "25",
+        "business": "Unlimited"
+      },
+      {
+        "id": "review-platforms",
+        "label": "Review-platform checklist",
+        "group": "Local",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "ai-blog-posts",
+        "label": "AI blog posts",
+        "group": "Content",
+        "free": "50 per company, for ever",
+        "growth": "300 / month",
+        "business": "1,500 / month",
+        "emphasis": "free",
+        "footnote": "ai-cap"
+      },
+      {
+        "id": "auto-blog",
+        "label": "Auto Blog (daily, per country)",
+        "group": "Content",
+        "free": null,
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "content-clusters",
+        "label": "Content clusters and strategy calendar",
+        "group": "Content",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "competitors",
+        "label": "Competitors list",
+        "group": "Intelligence",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "ai-research",
+        "label": "AI research and Market Radar",
+        "group": "Intelligence",
+        "free": null,
+        "growth": "Yes",
+        "business": "Yes",
+        "footnote": "market-radar-name"
+      },
+      {
+        "id": "pr-media",
+        "label": "PR and Media",
+        "group": "Intelligence",
+        "free": null,
+        "growth": null,
+        "business": "Yes"
+      },
+      {
+        "id": "connectors",
+        "label": "Search Console, GA4 and Clarity connect",
+        "group": "Analytics",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes",
+        "emphasis": "free"
+      },
+      {
+        "id": "site-intelligence",
+        "label": "Site Intelligence (field and lab speed, demand, page report card)",
+        "group": "Analytics",
+        "free": "Yes",
+        "growth": "Yes",
+        "business": "Yes"
+      },
+      {
+        "id": "cadence",
+        "label": "Automation cadence",
+        "group": "Analytics",
+        "free": "Weekly",
+        "growth": "Daily",
+        "business": "Hourly"
+      },
+      {
+        "id": "api-mcp",
+        "label": "Public API and MCP server",
+        "group": "Platform",
+        "free": null,
+        "growth": null,
+        "business": "Yes"
+      },
+      {
+        "id": "support",
+        "label": "Support",
+        "group": "Platform",
+        "free": "Docs and community",
+        "growth": "Email",
+        "business": "Priority plus onboarding"
+      }
+    ],
+    "footnotes": [
+      {
+        "id": "ai-cap",
+        "text": "The 50-post AI cap is per company, counts only successful generations, is never refunded, and is visible in-product as a meter before you spend it. We show the same number we enforce — the page and the product read the same function.",
+        "verified": true,
+        "verifiedSource": "admin docs/memory/decisions.md, 2026-10-07 (organization_limits.max_free_blog_posts)"
+      },
+      {
+        "id": "rate-limit",
+        "text": "\"Unlimited audits\" is rate-limited per site to stop a runaway loop, not to upsell. The limit is published in the docs.",
+        "verified": false,
+        "verifiedSource": null
+      },
+      {
+        "id": "forever",
+        "text": "Free does not expire, is not limited to one person, and does not take your card.",
+        "verified": false,
+        "verifiedSource": null
+      },
+      {
+        "id": "market-radar-name",
+        "text": "Market Radar is the product's competitive-intelligence section. The name is under review because the company is now MahaRadar (plan §1, D1 collision).",
+        "verified": true,
+        "verifiedSource": "plan §1 D1 — founder choice A/B/C still open"
+      }
+    ],
+    "publicTools": {
+      "ipQuotaPerHour": 10,
+      "hostQuotaPerDay": 20,
+      "connectTimeoutMs": 10000,
+      "totalTimeoutMs": 20000,
+      "maxResponseBytes": 2097152,
+      "maxPagesPerSiteRun": 25,
+      "maxLinksPerPage": 200,
+      "maxRedirectHops": 10,
+      "maxSitemapSampleUrls": 50,
+      "javascriptRendering": false,
+      "aiForAnonymous": false,
+      "scoreCardExpiryDays": 30
+    }
+  }
+}
