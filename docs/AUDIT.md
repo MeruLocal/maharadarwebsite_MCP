@@ -1,6 +1,6 @@
 # MahaRadar website MCP: audit and build, 2026-10-22
 
-**What existed:** `git ls-tree -r --name-only main | wc -l` = **2** files (README.md, .gitignore). A scaffold, no code.
+**What existed:** `git ls-tree -r --name-only main | wc -l` = **2** files (README.md, .gitignore). A scaffold, no code. Re-verified against origin after `git fetch` (not the local clone): `gh api .../git/trees/main?recursive=1` lists only those 2 paths, `gh pr list --state all` showed no PR before this one, and no `*radar*`/MCP repo other than this and the empty `maharadar-website` exists in MeruLocal. So nothing pre-existing was rebuilt.
 
 **Server audited:** the *website* MCP for maharadar.com (public, anonymous), repo `MeruLocal/maharadarwebsite_MCP`. Not the product's Business-plan API/MCP. Measured at repo commit `b6519ba` (main), then rebuilt on branch `fix/mcp-audit-build-2026-10-22`.
 
