@@ -20,11 +20,11 @@ const patterns = (t: Truth) => t.neverServe.map((p) => new RegExp(p, 'i'));
 
 /** Phrases from the never-serve list found anywhere in a value (strings, nested). */
 export function neverServeHits(value: unknown, t: Truth = truth): string[] {
-  const text = typeof value === 'string' ? value : JSON.stringify(value);
+  const text = (typeof value === 'string' ? value : JSON.stringify(value)).replace(/\\[nrt]/g, ' ').normalize('NFKC').replace(/\s+/g, ' ');
   return patterns(t).filter((r) => r.test(text)).map((r) => r.source);
 }
 
-export type Held = { kind: 'platform' | 'solutions' | 'faq' | 'tool'; id: string; reason: string };
+export type Held = { kind: 'platform' | 'solutions' | 'faq' | 'tool' | 'checklist'; id: string; reason: string };
 
 /**
  * Remove held items and apply tool overrides. Items are only ever removed or shortened, never reworded.
@@ -61,7 +61,10 @@ export function applyTruth<C extends { tools: any[]; platform: any[]; solutions:
     platform: keep(raw.platform, 'platform', (x: any) => x.id, t.held.platform),
     solutions: keep(raw.solutions, 'solutions', (x: any) => x.slug, t.held.solutions),
     faq: keep(raw.faq, 'faq', (x: any) => x.question, t.held.faq),
-    checklist: raw.checklist,
+    checklist: raw.checklist
+      .map((g: any) => ({ ...g, items: g.items.filter((i: any) => { const h = neverServeHits(i, t); if (h.length) held.push({ kind: 'checklist', id: i.title, reason: `matches never-serve list: ${h.join(', ')}` }); return !h.length; }) })),
+    // The site's proposed limits table is never served (see src/limits.ts).
+    limits: undefined,
   } as C;
   return { served, held };
 }

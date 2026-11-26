@@ -143,7 +143,7 @@ export function createServer(state: ServerState = defaultState()): McpServer {
     const p = content.platform.find((x) => x.id === id);
     if (!p) return ok({ id, status: 'not_published', message: 'This platform area is not published through this server (withheld until the site description is verified, or unknown id).', publishedIds: content.platform.map((x) => x.id), source: source() });
     const fs = truth.featureStatus.items.find((x) => x.id === id);
-    return ok({ id: p.id, name: p.name, ...envelope('platform_feature', abs(p.path), fs?.status === 'coming_soon' ? 'coming_soon' : 'available'), feature_status: fs?.status ?? 'live', version_label: fs?.status === 'live' ? fs.versionLabel : null, summary: p.summary, problem: p.problem, steps: p.steps, relatedTools: p.relatedTools.map((s: string) => abs(`/tools/${s}`)), url: abs(p.path), source: source() });
+    return ok({ id: p.id, name: p.name, ...envelope('platform_feature', abs(p.path), fs?.status === 'live' ? 'available' : fs?.status === 'coming_soon' ? 'coming_soon' : 'not_published'), feature_status: fs?.status ?? 'not_published', version_label: fs?.status === 'live' ? fs.versionLabel : null, summary: p.summary, problem: p.problem, steps: p.steps, relatedTools: p.relatedTools.map((s: string) => abs(`/tools/${s}`)), url: abs(p.path), source: source() });
   });
 
   server.registerTool('maharadar_get_feature_status', {
@@ -154,7 +154,9 @@ export function createServer(state: ServerState = defaultState()): McpServer {
     annotations: { title: 'Is a feature live?', ...READ_ONLY },
   }, async ({ feature }) => {
     const q = (feature ?? '').toLowerCase().split(/\W+/).filter((w) => w.length > 1);
-    const pick = truth.featureStatus.items.filter((f) => !q.length || q.some((w) => `${f.id} ${f.name}`.toLowerCase().includes(w)));
+    const STOP = new Set(['is', 'it', 'the', 'a', 'an', 'live', 'available', 'does', 'have', 'has', 'of', 'to']);
+    const qw = q.filter((w) => !STOP.has(w));
+    const pick = truth.featureStatus.items.filter((f) => !qw.length ? !q.length : qw.some((w) => `${f.id} ${f.name}`.toLowerCase().split(/\W+/).includes(w)));
     return ok({
       count: pick.length,
       features: pick.map((f) => ({ id: f.id, name: f.name, status: f.status, version_label: f.status === 'live' ? f.versionLabel : null, ...(f.note ? { note: f.note } : {}) })),

@@ -240,3 +240,45 @@ describe('eval file', () => {
     expect(faq.faqs.some((f: any) => /credit card/.test(f.question))).toBe(false);
   });
 });
+
+describe('blind-review fixes', () => {
+  it('never-serve matches across newlines, tabs, double spaces and NBSP', () => {
+    for (const bad of ['publishes\ndirectly', 'drafts  the\tfix', 'publishes directly']) expect(neverServeHits(bad), JSON.stringify(bad)).not.toEqual([]);
+    expect(neverServeHits({ a: 'publishes\ndirectly' })).not.toEqual([]);
+  });
+  it('checklist items are filtered and the raw limits table is not on served content', () => {
+    const raw: any = { tools: [], platform: [], solutions: [], faq: [], limits: { x: 1 }, checklist: [{ id: 'g', items: [{ title: 'ok', why: 'fine' }, { title: 'bad', why: 'Use our API' }] }] };
+    const { served: s, held } = applyTruth(raw);
+    expect((s as any).checklist[0].items.map((i: any) => i.title)).toEqual(['ok']);
+    expect((s as any).limits).toBeUndefined();
+    expect(held.some((h) => h.kind === 'checklist')).toBe(true);
+  });
+  it('platform area without a feature status is not_published, not live', async () => {
+    const { call } = await connect({ registers: emptyRegs, limits: null });
+    const r = await call('maharadar_get_platform_feature', { id: 'technical-seo' });
+    expect(r.status).toBe('not_published');
+  });
+  it('comparison gates reject price 0, text prices, record-level verdicts; markets tolerate bad figures; internals are stripped', async () => {
+    const base = { publication_status: 'verified_public', source_url: 'https://e.example/s', last_verified: '2026-11-20' };
+    const fact = { text: 't', source_url: 'https://c.example/p', as_of: '2026-11-01' };
+    const c = { ...base, slug: 's', checked_on: '2026-11-10', facts: [fact] };
+    expect(servableComparison({ ...c, facts: [{ ...fact, price: 0 }] })).toBe(false);
+    expect(servableComparison({ ...c, facts: [{ ...fact, text: 'Costs $29/mo' }] })).toBe(false);
+    expect(servableComparison({ ...c, verdict: 'x' })).toBe(false);
+    expect(servableMarket({ ...base, market: 'GB', astra_check: 'passed', figures: 'oops' })).toBe(false);
+    expect(servable({ ...base, last_verified: '2026-99-99' })).toBe(false);
+    expect(servable({ ...base, last_verified: '2999-01-01' })).toBe(false);
+    const { call } = await connect({ registers: { ...emptyRegs, claims: [{ ...base, approval_level: 'L4', approved_by: 'Some Person', text: 'ok' }] }, limits: null });
+    const d = await call('maharadar_get_claims');
+    expect(d.status).toBe('available');
+    expect(JSON.stringify(d)).not.toMatch(/Some Person|approved_by/);
+  });
+  it('hard-coded ABOUT and instructions are clean', () => {
+    expect(neverServeHits(strip(JSON.stringify(ABOUT)))).toEqual([]);
+  });
+  it('feature status matches whole words', async () => {
+    const { call } = await connect({ registers: emptyRegs, limits: null });
+    const r = await call('maharadar_get_feature_status', { feature: 'is autopilot live' });
+    expect(r.features.map((f: any) => f.id)).toEqual(['autopilot']);
+  });
+});

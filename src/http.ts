@@ -153,7 +153,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   if (req.method !== 'GET' && req.method !== 'HEAD') return json(res, 405, { error: 'method_not_allowed' }, { allow: 'GET, HEAD, OPTIONS' });
 
   if (p === '/health') return json(res, 200, { status: 'ok' });
-  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 10, resources: 2, prompts: 2, mcp_endpoint: `${publicUrl()}/mcp`, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
+  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 18, resources: 2, prompts: 2, mcp_endpoint: `${publicUrl()}/mcp`, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
   if (p === '/.well-known/mcp/server-card.json' || p === '/.well-known/mcp.json') return json(res, 200, serverCard(), { 'cache-control': 'public, max-age=3600' });
   if (p === '/llms.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=3600' }); return void res.end(llmsTxt()); }
   if (p === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' }); return void res.end('User-agent: *\nAllow: /\n'); }
