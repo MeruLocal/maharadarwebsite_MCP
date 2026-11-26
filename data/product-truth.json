@@ -1,0 +1,150 @@
+{
+  "$comment": "Product-truth rules from plan PR #4 (2026-11-20 audit). Hand-maintained until the website publishes product-truth.json (website W0.4). Holds REMOVE content from what the server serves; they never rewrite it.",
+  "asOf": "2026-11-20",
+  "verifiedLiveOn": "2026-11-19",
+  "source": "docs/plans/2026-11-20-mcp-product-truth-delta-evidence.csv (PR #4)",
+  "neverServe": [
+    "drafts? the (fix|change)",
+    "publishes? (it )?directly",
+    "applied directly",
+    "after a human approves",
+    "nothing publishes to your site",
+    "mcp server",
+    "\\bapi\\b",
+    "every table",
+    "row-level security",
+    "isolated in the database",
+    "lock, not a setting",
+    "ai.traffic",
+    "pay per site",
+    "priced per site",
+    "export is self-serve",
+    "two seats",
+    "(meru technosoft|hellogrowth|hellobooks|hellotime)"
+  ],
+  "held": {
+    "platform": {
+      "site-audit": "claims scheduled audits and drafted fixes (switched off / L0)",
+      "technical-seo": "claims scheduled server-side health checks (jobs engine off)",
+      "site-intelligence": "claims scheduled speed tracking (jobs off)",
+      "keywords": "claims weekly/daily/hourly rank updates (rank sync off)",
+      "links": "claims a backlink index and tracked-change suggestions (not built)",
+      "search-engines": "puts AI-traffic reporting on Free (full-admin only)",
+      "content": "claims nothing publishes without a person (some paths publish straight away)",
+      "publishing": "claims direct publishing (off by default, per-site switch)",
+      "roles-and-permissions": "claims row-level security on every table (no L3 audit)",
+      "api": "API and MCP server are planned, not available"
+    },
+    "solutions": {
+      "agencies": "claims row-level isolation and per-site pricing",
+      "saas": "claims drafted fixes",
+      "developers": "claims an API and MCP server"
+    },
+    "faq": {
+      "Is it really free?": "says two seats; the product enforces 5 members (F-1 open)",
+      "What is the catch?": "claims paid plans and a paid API; there is no billing",
+      "Will you change the free plan later?": "published limits are not the enforced ones; no limits changelog",
+      "Can it publish changes to my site?": "capability list not written; live publishing off by default",
+      "How is this different from Google Search Console?": "claims drafted changes; engine count inconsistent",
+      "Can I use it for client sites?": "claims database isolation and per-site pricing",
+      "Can I export everything and leave?": "export is per-list CSV only",
+      "What do you store when I use a free tool without an account?": "over-describes storage (run recording is a no-op)",
+      "Is my data used to train AI?": "policy statement not founder-approved or verifiable",
+      "Who is behind it?": "names parent and sister products; entity decision pending"
+    }
+  },
+  "toolOverrides": {
+    "website-seo-score": {
+      "dropChecksMatching": [
+        "shareable card"
+      ],
+      "metaDescription": "Get a 0–100 SEO score for any website, with sub-scores for content, technical, performance and metadata."
+    },
+    "schema-markup-validator": {
+      "dropChecksMatching": [
+        "recommended properties",
+        "contradict",
+        "not on the page"
+      ],
+      "metaDescription": "Validate structured data on a page. Checks that JSON-LD parses, the declared types, and missing required properties.",
+      "input": "Page address"
+    }
+  },
+  "featureStatus": {
+    "$comment": "status: live | coming_soon | not_offered. versionLabel only for live features and only when the website publishes it; null otherwise.",
+    "items": [
+      {
+        "id": "page-seo",
+        "name": "Page SEO",
+        "status": "live",
+        "versionLabel": null
+      },
+      {
+        "id": "local-seo",
+        "name": "Local SEO",
+        "status": "live",
+        "versionLabel": null
+      },
+      {
+        "id": "intelligence",
+        "name": "Intelligence",
+        "status": "live",
+        "versionLabel": null
+      },
+      {
+        "id": "crawl-intelligence-log-upload",
+        "name": "Googlebot log upload (Crawl intelligence)",
+        "status": "live",
+        "versionLabel": null,
+        "note": "Reads server logs: Googlebot log upload is live in Crawl intelligence."
+      },
+      {
+        "id": "market-radar",
+        "name": "Market Radar",
+        "status": "coming_soon",
+        "versionLabel": null,
+        "note": "Built, switched off."
+      },
+      {
+        "id": "autopilot",
+        "name": "Autopilot",
+        "status": "coming_soon",
+        "versionLabel": null,
+        "note": "Built, switched off."
+      },
+      {
+        "id": "uptime-monitoring",
+        "name": "Uptime monitoring",
+        "status": "coming_soon",
+        "versionLabel": null
+      },
+      {
+        "id": "scheduled-social",
+        "name": "Scheduled social posts",
+        "status": "coming_soon",
+        "versionLabel": null
+      },
+      {
+        "id": "ai-suggestions",
+        "name": "AI fix suggestions",
+        "status": "coming_soon",
+        "versionLabel": null,
+        "note": "Switched off. You edit the change and stage it as a release."
+      },
+      {
+        "id": "customer-api",
+        "name": "Customer REST API",
+        "status": "coming_soon",
+        "versionLabel": null,
+        "note": "Planned, not available."
+      },
+      {
+        "id": "account-mcp",
+        "name": "MCP server for account data",
+        "status": "coming_soon",
+        "versionLabel": null,
+        "note": "Planned, not available. This server is public information only."
+      }
+    ]
+  }
+}
