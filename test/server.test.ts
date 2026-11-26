@@ -29,9 +29,9 @@ describe('protocol', () => {
     const j = await r.json();
     expect(j.result.serverInfo.name).toBe('maharadar-mcp');
   });
-  it('lists 10 tools, all read-only with titles and annotations', async () => {
+  it('lists 18 tools, all read-only with titles and annotations', async () => {
     const j = await (await rpc('tools/list')).json();
-    expect(j.result.tools).toHaveLength(10);
+    expect(j.result.tools).toHaveLength(18);
     for (const t of j.result.tools) {
       expect(t.title).toBeTruthy();
       expect(t.annotations).toMatchObject({ readOnlyHint: true, destructiveHint: false, openWorldHint: false });
@@ -64,10 +64,10 @@ describe('content truth', () => {
     const slugs = content.tools.map((t) => t.slug).filter((s) => s !== 'seo-checklist');
     expect(slugs.sort()).toEqual([...live].sort());
   });
-  it('plan limits keep the proposed status and publish no prices', async () => {
+  it('plan limits are not published while no approved export exists, and carry no prices', async () => {
     const j = await (await rpc('tools/call', { name: 'maharadar_get_plan_limits', arguments: {} })).json();
     const d = j.result.structuredContent;
-    expect(d.limitsStatus).toBe('proposed');
+    expect(d.status).toBe('not_published');
     expect(d.pricesPublished).toBe(false);
     expect(JSON.stringify(d)).not.toMatch(/[₹$€£]\s?\d/);
   });
@@ -113,14 +113,14 @@ describe('hardening and inventory', () => {
   it('every tool returns valid structured output (SDK validates outputSchema) for a sample call', async () => {
     const calls: Array<[string, Record<string, unknown>]> = [
       ['maharadar_about', {}], ['maharadar_search', { query: 'sitemap' }], ['maharadar_list_free_tools', {}],
-      ['maharadar_get_free_tool', { slug: 'seo-audit' }], ['maharadar_get_plan_limits', {}], ['maharadar_get_platform_feature', { id: 'site-audit' }],
-      ['maharadar_get_audience_guide', { audience: 'agencies' }], ['maharadar_get_seo_checklist', {}], ['maharadar_find_free_tool', { task: 'robots.txt' }], ['maharadar_get_faq', { topic: 'card' }],
+      ['maharadar_get_free_tool', { slug: 'seo-audit' }], ['maharadar_get_plan_limits', {}], ['maharadar_get_platform_feature', { id: 'page-seo' }], ['maharadar_fetch', { id: 'free_tool:seo-audit' }], ['maharadar_get_feature_status', {}], ['maharadar_get_claims', {}], ['maharadar_get_trust_facts', {}], ['maharadar_list_comparisons', {}], ['maharadar_get_comparison', { competitor: 'semrush' }], ['maharadar_get_market_info', { market: 'GB' }], ['maharadar_get_changelog', {}],
+      ['maharadar_get_audience_guide', { audience: 'ecommerce' }], ['maharadar_get_seo_checklist', {}], ['maharadar_find_free_tool', { task: 'robots.txt' }], ['maharadar_get_faq', { topic: 'card' }],
     ];
     for (const [name, args] of calls) {
       const j = await (await rpc('tools/call', { name, arguments: args })).json();
       expect(j.error, name).toBeUndefined();
       expect(j.result.isError, name).toBeFalsy();
-      expect(j.result.structuredContent.source.contentRepo, name).toBe('MeruLocal/maharadarwebsite');
+      expect(j.result.structuredContent.source.contentRepo, name).toBe('maharadarwebsite');
     }
   });
   it('no tool, resource or prompt output contains a currency amount', async () => {

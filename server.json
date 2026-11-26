@@ -3,7 +3,7 @@
   "name": "com.maharadar/maharadar-mcp",
   "description": "Public read-only facts about MahaRadar, the free SEO platform: free SEO tools, platform features, plan limits and the SEO checklist, with canonical URLs. No account, no write tools.",
   "status": "active",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": { "url": "https://github.com/MeruLocal/maharadarwebsite_MCP", "source": "github" },
   "websiteUrl": "https://maharadar.com",
   "remotes": [

@@ -1,6 +1,6 @@
 {
   "name": "maharadar-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Public, read-only MCP server for maharadar.com: free SEO tools, platform features, plan limits and SEO checklist, with canonical URLs.",
   "type": "module",
   "license": "UNLICENSED",

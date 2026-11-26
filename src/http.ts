@@ -1,7 +1,7 @@
 import { createServer as createHttpServer, type IncomingMessage, type ServerResponse, type Server } from 'node:http';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { content } from './content.js';
-import { createServer, SERVER_NAME, SERVER_VERSION } from './server.js';
+import { createServer, DISAMBIGUATION, SERVER_NAME, SERVER_VERSION } from './server.js';
 
 const MAX_BODY = 64 * 1024;
 const RATE_PER_MIN = 120;
@@ -15,7 +15,7 @@ export function serverCard() {
     title: 'MahaRadar (public site info)',
     version: SERVER_VERSION,
     description:
-      'Public, read-only facts about MahaRadar, the free SEO platform at maharadar.com: free SEO tools, platform features, audience guides, plan limits and the SEO checklist, with canonical URLs. No account, no write tools.',
+      `Public, read-only facts about MahaRadar, the free SEO platform at maharadar.com: free SEO tools, verified platform features, feature status, approved plan limits and the SEO checklist, with canonical URLs. No account, no write tools. ${DISAMBIGUATION}`,
     homepage: content.site,
     endpoint: `${base}/mcp`,
     transport: 'streamable-http',
@@ -23,9 +23,8 @@ export function serverCard() {
     authentication: 'none',
     protocolVersions: ['2025-11-25', '2025-06-18', '2025-03-26'],
     capabilities: { tools: true, resources: true, prompts: true },
-    operator: 'Meru Technosoft',
     llmsTxt: `${base}/llms.txt`,
-    contentSource: content.generatedFrom,
+    contentSource: { ...content.generatedFrom, repo: content.generatedFrom.repo.split('/').pop() },
   };
 }
 
@@ -34,7 +33,7 @@ export function llmsTxt(): string {
   const tools = content.tools.map((t) => `- ${t.name}: ${content.site}${t.path}`).join('\n');
   return `# MahaRadar MCP server
 
-> Public, read-only MCP server with facts about MahaRadar (${content.site}), the free SEO platform. Streamable HTTP, stateless, no authentication.
+> Public, read-only MCP server with facts about MahaRadar (${content.site}), the free SEO platform. Streamable HTTP, stateless, no authentication. ${DISAMBIGUATION}
 
 ## Connect
 
@@ -44,8 +43,9 @@ export function llmsTxt(): string {
 
 ## Tools
 
-- maharadar_about, maharadar_search, maharadar_find_free_tool, maharadar_list_free_tools, maharadar_get_free_tool
-- maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_audience_guide, maharadar_get_seo_checklist, maharadar_get_faq
+- maharadar_about, maharadar_search, maharadar_fetch, maharadar_find_free_tool, maharadar_list_free_tools, maharadar_get_free_tool
+- maharadar_get_plan_limits, maharadar_get_platform_feature, maharadar_get_feature_status, maharadar_get_audience_guide, maharadar_get_seo_checklist, maharadar_get_faq
+- maharadar_get_claims, maharadar_get_trust_facts, maharadar_list_comparisons, maharadar_get_comparison, maharadar_get_market_info, maharadar_get_changelog (return status not_published until the underlying records are approved and published)
 
 ## Free tools the server describes (canonical pages)
 
@@ -54,7 +54,7 @@ ${tools}
 ## Notes
 
 - Paid-plan prices are not published by MahaRadar; this server does not state any.
-- Content is generated from the maharadar.com site source (${content.generatedFrom.repo} @ ${content.generatedFrom.commit.slice(0, 8)}).
+- Content is generated from the maharadar.com site source (${content.generatedFrom.repo.split('/').pop()} @ ${content.generatedFrom.commit.slice(0, 8)}).
 `;
 }
 
@@ -153,7 +153,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   if (req.method !== 'GET' && req.method !== 'HEAD') return json(res, 405, { error: 'method_not_allowed' }, { allow: 'GET, HEAD, OPTIONS' });
 
   if (p === '/health') return json(res, 200, { status: 'ok' });
-  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 10, resources: 2, prompts: 2, mcp_endpoint: `${publicUrl()}/mcp`, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
+  if (p === '/version') return json(res, 200, { name: SERVER_NAME, version: SERVER_VERSION, tools: 18, resources: 2, prompts: 2, mcp_endpoint: `${publicUrl()}/mcp`, contentCommit: content.generatedFrom.commit, contentBranch: content.generatedFrom.branch });
   if (p === '/.well-known/mcp/server-card.json' || p === '/.well-known/mcp.json') return json(res, 200, serverCard(), { 'cache-control': 'public, max-age=3600' });
   if (p === '/llms.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=3600' }); return void res.end(llmsTxt()); }
   if (p === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' }); return void res.end('User-agent: *\nAllow: /\n'); }

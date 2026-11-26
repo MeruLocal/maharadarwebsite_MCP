@@ -1,0 +1,8 @@
+{
+  "$comment": "Registers the founder/site have not published yet. EMPTY ON PURPOSE: nothing is invented to fill them. Each entry must pass the gates in src/registers.ts before any tool serves it.",
+  "claims": [],
+  "comparisons": [],
+  "trustFacts": [],
+  "markets": [],
+  "changelog": []
+}
